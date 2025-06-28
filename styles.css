@@ -245,3 +245,95 @@ header {
   .auth-option a {
     color: blue;
   }
+
+
+/* 
+    CSS styles for Signup page begins
+*/
+#container-signup-page{
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr 0fr;
+    grid-template-rows: 150px auto 100px;
+    grid-gap: 10px;
+
+    /* vh: viewport height */
+    min-height: 100vh;
+    
+    /* vw: viewport width */
+    width: 100vw;
+}
+
+#header-signup
+{
+    font-size: 50px;
+    text-align: left;
+    /*justify-content: center;*/
+}
+
+#signup{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+ 
+
+#signup .auth-form {
+    margin-top: 60px;
+  
+   border: 5px solid #073c7ac8;
+  
+    border-radius: 20px;
+    padding: 10px 20px 40px 20px;
+    width: 50%;
+}
+
+.input-field input {
+  
+    float: right ;
+   
+    margin-right: 9px;
+    padding: 5px;
+
+}
+
+
+.input-field{
+    margin-bottom: 10px;
+}
+
+.error-text {
+    color: red;
+    font-style: italic;
+    text-align: right;
+    font-size: 12px;
+    margin-top: 5px;
+
+} 
+.hidden{
+    visibility: hidden;
+}
+
+.error-input {
+    border: 2px solid red;
+   
+}
+
+.creation-containers .error-text {
+    color: red;
+    font-style: italic;
+    text-align:left;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+ .invalid{
+    border: 2px solid red; 
+ }
+
+/* 
+    CSS styles for Signup page ends
+*/
+
+
+
