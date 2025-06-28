@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head >
+  <meta charset="utf-8" />
+        <title>Sign up</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <meta name="referrer" content="unsafe-url"/>
+        <script src = "js/eventHandler.js"></script>
+    </head>
+
+    <body>
+   <div id="container-signup-page">
+        <div id="header-signup-page">
+
+        <h1>Budget tracker</h1>
+
+      </div>
+
+      <!--<div class="signin-corner"> 
+
+        <h2>Sign in</h2>
+           
+                <p class="input-field">
+                  
+                    <label for="uname">User name:</label>
+                    <input type="text" name="uname" id="uname" />
+                </p>
+                <p class="input-field">
+                    <label for="pwd">Password:</label>
+                    <input type="password" name="pwd" />
+                </p>
+
+                <p class="input-field" >
+                     <input type="submit" value="Sign in"/>
+                </p>
+            </form>
+            <br>
+            <div class="foot-note">
+                <p>Don't have an account yet?  <a href="signup.html">Sign up here</a></p>
+            </div>
+        </div> -->
+
+       
+
+        <main id="signup">
+            <h3 id="header-signup">Create an account</h3>
+            <form id ="signup-form" action = "link to main page..." method ="post" class="auth-form">
+                <p class="input-field">
+
+                    <!-- label for the full name input -->
+                    <label for="fname">Full Name:</label>
+                    <!-- full name input box -->
+                    <input type="text" name="fname" id="fname" />
+                </p>
+                
+                 <p class=" input-field">
+                    <!-- label for the email input -->
+                    <label for="email">Email:</label>
+                    <!-- email input box -->
+                    <input type="text" name="email" id="email" />
+                    <p id = "error-text-email" class="error-text hidden"> Please enter a valid address format. </p>
+                </p>
+
+                <p class="input-field">
+                
+                    <!-- label for the username input -->
+                    <label for="screenname">User Name:</label>
+                    <!-- username input box -->
+                    <input type="text" name="screenname" id="screenname" />
+                    <p id = "error-text-screenName" class = "error-text hidden"> Plese enter name without spaces or non-word characters.</p>
+                </p>
+                <p class="input-field">
+        
+
+                    <!-- label for the password input -->
+                    <label for="pass">Password:</label>
+                    <!-- password input box -->
+                    <input type="password" name="pass" id="pass" />
+                    <p id ="error-text-password" class = "error-text hidden"> Please enter a password 6 characters long,at least one non-letter character.</p>
+                </p>
+                <p class="input-field">
+
+                    <!-- label for the confirm-password input -->
+                    <label for="confirm_pwd">Confirm Password:</label>
+                    <!-- confirm-password input box -->
+                    <input type="password" name="comfirm_pwd" id="confirm_pwd" />
+                    <p id = "error-text-confirm-password" class = "error-text hidden"> Password doesn't match </p>
+                </p>
+                <p class="input-field">
+
+                    <!-- label for the date of birth input -->
+                    <label for="dob">Date of Birth:</label>
+                    <!-- date of birth input box -->
+                    <input type="date" name="dob" id="dob" />
+                </p>
+                
+
+                <p class="input-field">
+
+                    <!-- The form should have a submit button and 
+                     necessary form-attributes for redirecting users
+                     to appropriate pages-->
+                     <input type="submit" value="Sign Up!" />
+                </p>
+            </form>
+            <div class="foot-note">
+
+                <!-- add login link -->
+                <a href="login.html">Login here</a>
+            </div>
+        </main>
+
+
+       
+    </div>
+
+    <script src = "js/eventRegisterSignup.js"> </script>
+</body>
+
+</html>
