@@ -1,0 +1,63 @@
+POSSIBLE TABLES FOR FUNCTRIONALITY OF BUDGET APP
+
+	Users table
+	
+	USERS
+	user_id INT (P)
+	username VARCHAR(50) 
+	email VARCHAR(100)
+	password_hash VARCHAR(255)
+	created_at DATE
+	
+	TABLE CREATION SYNTAX
+	
+	CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP);
+	
+	Categories table
+	
+	CATEGORIES
+	category_id  INT (P)
+	user_id INT (F)
+	name VARCHAR(255)
+	type ENUM('income', 'expense')
+	
+	TABLE CREATION SYNTAX 
+	
+	CREATE TABLE Categories (
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    name VARCHAR(50) NOT NULL,
+    type ENUM('income', 'expense') NOT NULL,
+    color_code VARCHAR(7),  -- For UI purposes (e.g. "#ff0000")
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE);
+	
+	Transactions table 
+	
+	TRANSACTIONS 
+	transaction id int (P)
+	user id int(F)
+	category id(F)
+	amount int
+	decription text
+	transaction date
+	recurring fee? boolean    (might not be needed)
+	created at TIME
+	
+	CREATE TABLE Transactions (
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    category_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    description TEXT,
+    transaction_date DATE NOT NULL,
+    is_recurring BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES Categories(category_id) ON DELETE CASCADE
+);
+	
