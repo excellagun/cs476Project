@@ -261,17 +261,17 @@ header {
 /* 
     CSS styles for Signup page begins
 */
-#container-signup-page{
+/*****#container-signup-page{
     display: grid;
     grid-template-columns: 3fr 1fr 2fr 0fr;
     grid-template-rows: 150px auto 100px;
     grid-gap: 10px;
 
-    /* vh: viewport height */
+    /* vh: viewport height 
     min-height: 100vh;
     
     /* vw: viewport width */
-    width: 100vw;
+  /*  width: 100vw;
 }
 
 #header-signup
@@ -279,7 +279,7 @@ header {
     font-size: 50px;
     text-align: left;
     /*justify-content: center;*/
-}
+/*}
 
 #signup{
     grid-column-start: 1;
@@ -340,7 +340,7 @@ header {
 
  .invalid{
     border: 2px solid red; 
- }
+ }*/
 
 /* 
     CSS styles for Signup page ends
