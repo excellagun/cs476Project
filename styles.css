@@ -177,8 +177,11 @@ header {
   }
   
   main {
-    border-color: rgba(0, 0, 0, 0.1);
-    padding-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px); /* account for sticky header */
+    padding: 40px 0;
   }
   
   form input,
