@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset = "UTF-8"/>
+    <meta charset="UTF-8" /> <!-- FIXED: spacing -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
-    <!--Header Section--->
+    <!-- Header Section -->
     <header>
-      <div class ="app-logo">
-        <!------Need to insert the logo here---->
-        <img src ="logo.png" alt "App Logo" />
+      <div class="app-logo">
+        <!-- FIXED: Corrected alt attribute syntax -->
+        <img src="logo.png" alt="App Logo" />
       </div>
     </header>
 
-
-    <!---Main Layout--->
+    <!-- Main Layout -->
     <main>
-      <!--<div class="auth-form">
-        <!--<h2 class="auth-header">Login</h2>-->
-          <form class="auth-form" action="mainpage.html">
-            <div>
-              <label for= "username">Username</label>
-              <input type = "text" id ="username" name="username" />
-            </div>
-            <div>
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" />
-            </div>
-            <button type ="submit"> Login </button>
-          </form>
-        <!--<div class="auth-option">
-          <p>Don't have an account? <a href= "signup.html">Signup </a></p>
-        </div>-->
-          <div class="foot-note">
-            <p>Don't have an account? <a href="signup.html">Signup</a></p>
-          </div>
-    
-    </main>
+      <!-- FIXED: Removed broken nested comment and added heading -->
+      <form class="auth-form" action="mainpage.html">
+        <h2 class="auth-header">Login</h2> <!-- FIXED: Uncommented heading -->
+        <div>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" />
+        </div>
+        <button type="submit">Login</button>
+      </form>
 
-    <script scr=""></script>
-    
+      <!-- FIXED: Moved foot-note outside form and formatted -->
+      <div class="foot-note">
+        <p>Don't have an account? <a href="signup.html">Signup</a></p>
+      </div>
+    </main> <!-- FIXED: Closed main tag -->
+
+    <!-- FIXED: Corrected 'src' spelling -->
+    <script src=""></script>
   </body>
 </html>
