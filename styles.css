@@ -181,7 +181,7 @@ header {
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 60px); /* account for sticky header */
-    padding: 40px 0;
+    padding: 40px 16px;
   }
   
   form input,
@@ -243,6 +243,11 @@ header {
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
+  .auth-header {
+    font-size: 24px;
+    margin-bottom: 16px;
+    text-align: center;
+}
   
   .auth-option {
     margin-top: 12px;
@@ -256,6 +261,7 @@ header {
 
 .foot-note {
     margin-left: 20px;
+    margin-top: 16px;
 }
 
 /* 
