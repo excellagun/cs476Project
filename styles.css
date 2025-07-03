@@ -421,3 +421,89 @@ HomePage Starts here
 /* 
 HomePage ends here
 */
+
+/*index page*/
+// Hero Section
+    gsap.from(".hero-text h1", {
+      x: -100,
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out"
+    });
+
+    gsap.from(".hero-text p", {
+      x: -100,
+      opacity: 0,
+      delay: 0.3,
+      duration: 1
+    });
+
+    gsap.from(".hero-text button", {
+      scale: 0.8,
+      opacity: 0,
+      delay: 0.6,
+      duration: 1
+    });
+
+    // How It Works Cards
+    gsap.from("#how-it-works .card", {
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: "#how-it-works",
+        start: "top 85%"
+      }
+    });
+
+    // Features Cards
+    gsap.from("#features .card", {
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.15,
+      scrollTrigger: {
+        trigger: "#features",
+        start: "top 85%"
+      }
+    });
+
+    // Pricing Cards
+    gsap.from("#pricing .card", {
+      rotateY: 20,
+      y: 80,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: "#pricing",
+        start: "top 85%"
+      }
+    });
+
+    // CTA Banner
+    gsap.from(".cta-banner", {
+      scale: 0.95,
+      opacity: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: ".cta-banner",
+        start: "top 85%"
+      }
+    });
+
+    // Bounce CTA Buttons
+    gsap.from(".cta", {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      ease: "bounce.out",
+      scrollTrigger: {
+        trigger: ".cta",
+        start: "top 95%",
+        toggleActions: "play none none none"
+      }
+    });
+  });
+/*index page ends*/
