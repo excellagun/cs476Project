@@ -181,7 +181,7 @@ header {
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 60px); /* account for sticky header */
-    padding: 40px 0;
+    /*padding: 40px 0;*/
   }
   
   form input,
@@ -257,17 +257,17 @@ header {
 
 /* 
     CSS styles for Signup page begins
-*/
+
 #container-signup-page{
     display: grid;
     grid-template-columns: 3fr 1fr 2fr 0fr;
     grid-template-rows: 150px auto 100px;
     grid-gap: 10px;
 
-    /* vh: viewport height */
+    /* vh: viewport height 
     min-height: 100vh;
     
-    /* vw: viewport width */
+    /* vw: viewport width 
     width: 100vw;
 }
 
@@ -275,7 +275,7 @@ header {
 {
     font-size: 50px;
     text-align: left;
-    /*justify-content: center;*/
+    /*justify-content: center;
 }
 
 #signup{
