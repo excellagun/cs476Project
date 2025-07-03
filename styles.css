@@ -263,6 +263,29 @@ header {
     margin-left: 20px;
     margin-top: 16px;
 }
+body.simple-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0 16px;
+}
+
+body.simple-page main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: auto;
+  padding: 0;
+}
+
+body.simple-page .foot-note {
+  margin: 16px 0 0 0;
+  text-align: center;
+}
 
 /* 
     CSS styles for Signup page begins
