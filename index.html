@@ -1,200 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BudgetWise - Personal Budget App</title>
-    <link rel="stylesheet" href ="/cs476Project/styles.css"/>
-   <!-- <link rel="stylesheet" href ="./styles.css"/>
+    <link href="styles.css" rel="stylesheet">
 
-    <!-- Lottie Files -->
-    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.3.0/dist/dotlottie-wc.js" type="module"></script>
+    <!-- GSAP Core -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-    <!-- GSAP Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  </head>
-  <body>
-    <div class="bw-wrapper">
-      <!-- Header -->
-      <header class="bw-header">
-        <div class="bw-logo">BudgetWise</div>
-        <div class="bw-header-right">
-          <nav class="bw-nav">
-            <a href="#">Home</a>
-            <a href="#features">Features</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#blog">Blog</a>
-            <a href="#signin">Sign In</a>
-          </nav>
-          <a href="#signup" class="bw-cta">Sign Up</a>
-        </div>
+<!-- ScrollTrigger Plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <header class="homepage-header">
+        <div class="logo">BudgetWise</div>
+        <nav>
+          <a href="#">Home</a>
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#blog">Blog</a>
+          <a href="/cs476Project/login.html">Sign In</a>
+          <a href="#signup" class="cta">Sign Up</a>
+        </nav>
       </header>
-
-      <!-- Hero Section -->
-      <section class="bw-hero">
-        <div class="bw-hero-text">
-          <h1>Personal Budget Tracker</h1>
-          <p>Track your income and expenses, set goals, and get spending predictions.</p>
-          <a href="#signup" class="bw-cta">Get Started</a>
-        </div>
-        <div class="bw-hero-image">
-          <img src="cs476Project/photos/Money stress-pana.svg" alt="Budget illustration" />
-        </div>
-      </section>
-
-      <!-- How It Works -->
-      <section class="bw-section" id="how-it-works">
-        <h2 class="bw-section-heading">How It Works</h2>
-        <div class="bw-howitworks-grid">
-          <div class="bw-howitworks-text">
-            <div class="bw-card">1. Input or Sync Your Accounts</div>
-            <div class="bw-card">2. View Your Dashboard</div>
-            <div class="bw-card">3. Receive Smart Predictions</div>
-          </div>
-          <div class="bw-howitworks-animation">
-            <dotlottie-wc
-              src="https://lottie.host/546e5ea9-4afe-4bf3-b25d-801f8015fe15/JbUTuI5xNT.lottie"
-              autoplay loop
-              style="width: 100%; max-width: 400px;"
-            ></dotlottie-wc>
-          </div>
+     
+    <section class="hero">
+        
+       <div clas="hero-text" >
+        <h1>Personal Budget Tracker</h1>
+        <p>Track your income and expenses, set goals, view transaction history, and get spending predictions </p> 
+        <button class="cta"> Get Started</button>
+     </div>
+    </section>
+    <section class="section" id="how-it-works">
+        <h2>How It Works</h2>
+        <div class="features">
+          <div class="card">Input or Sync Your Accounts</div>
+          <div class="card">View Your Dashboard</div>
+          <div class="card">Receive Smart Predictions</div>
         </div>
       </section>
-
-      <!-- Features Section -->
-      <section class="bw-section" id="features">
-        <h2 class="bw-section-heading">Everything You Need in One App</h2>
-        <div class="bw-feature-grid">
-          <div class="bw-card bw-feature-card">
-            <img src="/photos/Manage money-bro.svg" alt="Track" class="bw-feature-icon" />
-            <h3>Track Every Dollar</h3>
-            <p>Stay on top of your income and expenses in real time.</p>
-          </div>
-          <div class="bw-card bw-feature-card">
-            <img src="/photos/Teleportation-pana.svg" alt="Predict" class="bw-feature-icon" />
-            <h3>Predict Future Expenses</h3>
-            <p>AI-based forecasts help you plan ahead with confidence.</p>
-          </div>
-          <div class="bw-card bw-feature-card">
-            <img src="/photos/Goal-amico.svg" alt="Goals" class="bw-feature-icon" />
-            <h3>Set Savings Goals</h3>
-            <p>Define and monitor your financial objectives.</p>
-          </div>
-          <div class="bw-card bw-feature-card">
-            <img src="/photos/Plain credit card-bro.svg" alt="Bills" class="bw-feature-icon" />
-            <h3>Bill Reminders</h3>
-            <p>Stay ahead of your due dates and avoid late fees.</p>
-          </div>
-          <div class="bw-card bw-feature-card">
-            <img src="/photos/Login-bro.svg" alt="Security" class="bw-feature-icon" />
-            <h3>Bank-Level Security</h3>
-            <p>Enjoy peace of mind with encrypted account protection.</p>
-          </div>
-          <div class="bw-card bw-feature-card">
-            <img src="/photos/Mobile login-rafiki.svg" alt="Mobile" class="bw-feature-icon" />
-            <h3>Mobile Friendly</h3>
-            <p>Manage your budget from anywhere on any device.</p>
-          </div>
+      <section class="section" id="features">
+        <h2>Everything You Need in One App</h2>
+        <div class="features">
+          <div class="card">Track Every Dollar</div>
+          <div class="card">Predict Future Expenses</div>
+          <div class="card">Set Savings Goals</div>
+          <div class="card">Bill Reminders</div>
+          <div class="card">Bank-Level Security</div>
+          <div class="card">Mobile Friendly</div>
         </div>
       </section>
-
-      <!-- Free Prediction Section -->
-      <section class="bw-section" id="free-prediction">
-        <h2 class="bw-section-heading">Get a Free Spending Prediction</h2>
-        <p style="text-align:center; max-width:600px; margin: 0 auto 2rem;">
-          Try our AI model and see what you might save or spend next month. No sign-up required.
-        </p>
+      <section class="section" id="free-prediction">
+        <h2>Get a Free Spending Prediction</h2>
+        <p style="text-align:center; max-width:600px; margin: 0 auto 2rem;">Try our AI model and see what you might save or spend next month. No sign-up required.</p>
         <div style="text-align: center;">
-          <a href="#prediction" class="bw-cta">Generate My Prediction</a>
+          <a href="#prediction" class="cta">Generate My Prediction</a>
         </div>
       </section>
-
-      <!-- Pricing Section -->
-      <section class="bw-section bw-pricing-section" id="pricing">
-        <h2 class="bw-section-heading">Simple, Transparent Pricing</h2>
-        <div class="bw-pricing">
-          <div class="bw-card">
+      <section class="section" id="pricing">
+        <h2>Simple, Transparent Pricing</h2>
+        <div class="pricing">
+          <div class="card">
             <h3>Free</h3>
-            <p class="price">$0<span>/month</span></p>
-            <ul class="features-list">
-              <li>Basic tracking</li>
-              <li>1 goal</li>
-              <li>Limited predictions</li>
-            </ul>
-            <a href="#signup" class="bw-cta bw-card-button">Choose Plan</a>
+            <p>$0/month</p>
+            <p>✔ Basic tracking<br>✔ 1 goal<br>✔ Limited predictions</p>
           </div>
-          <div class="bw-card">
+          <div class="card">
             <h3>Plus</h3>
-            <p class="price">$5<span>/month</span></p>
-            <ul class="features-list">
-              <li>Unlimited categories</li>
-              <li>Smart predictions</li>
-              <li>Multiple goals</li>
-            </ul>
-            <a href="#signup" class="bw-cta bw-card-button">Choose Plan</a>
+            <p>$5/month</p>
+            <p>✔ Unlimited categories<br>✔ Smart predictions<br>✔ Multiple goals</p>
           </div>
-          <div class="bw-card">
+          <div class="card">
             <h3>Pro</h3>
-            <p class="price">$10<span>/month</span></p>
-            <ul class="features-list">
-              <li>All features</li>
-              <li>Smart alerts</li>
-              <li>Export & support</li>
-            </ul>
-            <a href="#signup" class="bw-cta bw-card-button">Choose Plan</a>
+            <p>$10/month</p>
+            <p>✔ All features<br>✔ Smart alerts<br>✔ Export & support</p>
           </div>
         </div>
       </section>
-
-      <!-- CTA Banner -->
-      <section class="bw-cta-banner">
-        <div class="bw-cta-text">
-          <h2>Ready to Take Control of Your Budget?</h2>
-          <p>Join thousands using BudgetWise to manage their money smarter.</p>
-          <a href="#signup" class="bw-cta">Start Free</a>
-        </div>
-        <div class="bw-cta-image">
-          <img src="/photos/Banknote-rafiki.svg" alt="Money saving illustration" />
-        </div>
+      <section class="cta-banner">
+        <h2>Ready to Take Control of Your Budget?</h2>
+        <p>Join thousands using BudgetWise to manage their money smarter.</p>
+        <a href="#signup" class="cta">Start Free</a>
       </section>
-
-      <!-- Footer -->
-      <footer class="bw-footer">
+      <footer class="footer">
         <p>&copy; 2025 BudgetWise. All rights reserved.</p>
-        <p><a href="#">About</a> | <a href="#">Blog</a> | <a href="#">Contact</a> | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+        <p>About | Blog | Contact | Privacy | Terms</p>
       </footer>
-    </div>
+</body>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(ScrollTrigger);
 
-    <!-- GSAP Scroll Animations -->
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        gsap.registerPlugin(ScrollTrigger);
+    // Hero Section
+    gsap.from(".hero-text h1", {
+      x: -100,
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out"
+    });
 
-        gsap.from(".bw-hero-text h1", { x: -100, opacity: 0, duration: 1 });
-        gsap.from(".bw-hero-text p", { x: -100, opacity: 0, delay: 0.3, duration: 1 });
-        gsap.from(".bw-hero-text .bw-cta", { scale: 0.8, opacity: 0, delay: 0.6, duration: 1 });
+    gsap.from(".hero-text p", {
+      x: -100,
+      opacity: 0,
+      delay: 0.3,
+      duration: 1
+    });
 
-        gsap.from("#how-it-works .bw-card", {
-          y: 60, opacity: 0, duration: 1, stagger: 0.2,
-          scrollTrigger: { trigger: "#how-it-works", start: "top 85%" }
-        });
+    gsap.from(".hero-text button", {
+      scale: 0.8,
+      opacity: 0,
+      delay: 0.6,
+      duration: 1
+    });
 
-        gsap.from("#features .bw-feature-card", {
-          y: 60, opacity: 0, duration: 1, stagger: 0.2,
-          scrollTrigger: { trigger: "#features", start: "top 85%" }
-        });
+    // How It Works Cards
+    gsap.from("#how-it-works .card", {
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: "#how-it-works",
+        start: "top 85%"
+      }
+    });
 
-        gsap.from("#pricing .bw-card", {
-          rotateY: 15, y: 80, opacity: 0, duration: 1, stagger: 0.2,
-          scrollTrigger: { trigger: "#pricing", start: "top 85%" }
-        });
+    // Features Cards
+    gsap.from("#features .card", {
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.15,
+      scrollTrigger: {
+        trigger: "#features",
+        start: "top 85%"
+      }
+    });
 
-        gsap.from(".bw-cta-banner", {
-          scale: 0.95, opacity: 0, duration: 1,
-          scrollTrigger: { trigger: ".bw-cta-banner", start: "top 85%" }
-        });
-      });
-    </script>
-  </body>
+    // Pricing Cards
+    gsap.from("#pricing .card", {
+      rotateY: 20,
+      y: 80,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: "#pricing",
+        start: "top 85%"
+      }
+    });
+
+    // CTA Banner
+    gsap.from(".cta-banner", {
+      scale: 0.95,
+      opacity: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: ".cta-banner",
+        start: "top 85%"
+      }
+    });
+
+    // Bounce CTA Buttons
+    gsap.from(".cta", {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      ease: "bounce.out",
+      scrollTrigger: {
+        trigger: ".cta",
+        start: "top 95%",
+        toggleActions: "play none none none"
+      }
+    });
+  });
+</script>
+
 </html>
