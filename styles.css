@@ -264,23 +264,29 @@ header {
 /* CSS styles for Signup page begins*/
 
 #container-signup-page{
-    display: grid;
-    grid-template-columns: 3fr 1fr 2fr 0fr;
-    grid-template-rows: 150px auto 100px;
-    grid-gap: 10px;
-
-    vh: viewport height 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     min-height: 100vh;
-    
-    vw: viewport width 
-    width: 100vw;
+    background-color: #f1fdf5;
+    padding: 20px;
+}
+
+#header-signup-page {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
 }
 
 #header-signup
 {
-    font-size: 50px;
-    text-align: left;
-    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 #signup{
@@ -292,13 +298,12 @@ header {
  
 
 #signup .auth-form {
-    margin-top: 60px;
-  
-   border: 5px solid #073c7ac8;
-  
+    margin-top: 20px;
+    border: 5px solid #073c7ac8;
     border-radius: 20px;
-    padding: 10px 20px 40px 20px;
-    width: 50%;
+    padding: 20px 24px 32px 24px;
+    width: 100%;
+    max-width: 400px;
 }
 
 .input-field input {
@@ -312,7 +317,7 @@ header {
 
 
 .input-field{
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 .error-text {
@@ -343,6 +348,11 @@ header {
  .invalid{
     border: 2px solid red; 
  }
+
+.foot-note {
+    margin-top: 20px;
+    text-align: center;
+}
 
 /* 
     CSS styles for Signup page ends
