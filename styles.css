@@ -261,8 +261,7 @@ header {
   }
 
 
-/* 
-    CSS styles for Signup page begins
+/* CSS styles for Signup page begins*/
 
 #container-signup-page{
     display: grid;
@@ -270,10 +269,10 @@ header {
     grid-template-rows: 150px auto 100px;
     grid-gap: 10px;
 
-    /* vh: viewport height 
+    vh: viewport height 
     min-height: 100vh;
     
-    /* vw: viewport width 
+    vw: viewport width 
     width: 100vw;
 }
 
@@ -281,7 +280,7 @@ header {
 {
     font-size: 50px;
     text-align: left;
-    /*justify-content: center;
+    justify-content: center;
 }
 
 #signup{
