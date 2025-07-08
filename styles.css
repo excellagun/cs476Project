@@ -361,7 +361,7 @@ header {
     text-align: center;
 
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: end;
     grid-row-start: 3;
     grid-row-end: 4;
 }
