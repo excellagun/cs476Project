@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="js/eventHandlers.js"></script>
   </head>
 
   <body>
@@ -20,7 +21,7 @@
     <main>
       <!-- FIXED: Removed broken nested comment and added heading -->
       <div class="auth-container">
-        <form class="auth-form" action="mainpage.html">
+        <form class="auth-form" action="mainpage.html" id="login-page">
           <h2 class="auth-header">Login</h2> <!-- FIXED: Uncommented heading -->
           <div>
             <label for="username">Username</label>
@@ -38,8 +39,11 @@
         </div>
       </div>
     </main> <!-- FIXED: Closed main tag -->
+    <footer id="footer-auth">
+            <p class="footer-text">BudgetWise - Personal Budget Tracker</p>
+        </footer>
 
     <!-- FIXED: Corrected 'src' spelling -->
-    <script src=""></script>
+   <script src="js/eventRegisterLogin.js"></script>
   </body>
 </html>
