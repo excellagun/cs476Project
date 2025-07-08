@@ -354,6 +354,17 @@ header {
     text-align: center;
 }
 
+#footer-auth{
+    background-color: black;;
+    color: white;
+    width: 100%;
+    text-align: center;
+
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
 .footer-text{
     margin-top: 35px;
     font-size: 20px;
