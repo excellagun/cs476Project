@@ -354,6 +354,11 @@ header {
     text-align: center;
 }
 
+.footer-text{
+    margin-top: 35px;
+    font-size: 20px;
+}
+
 /* 
     CSS styles for Signup page ends
 */
