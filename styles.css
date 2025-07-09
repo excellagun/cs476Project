@@ -1,375 +1,115 @@
-/********
-GRID LAYOUT
-********/
-header {
-    grid-area: header;
-  }
-  
-  main {
-    grid-area: main;
-  }
-  
-  .left-sidebar {
-    grid-area: left-sidebar;
-  }
-  
-  .right-sidebar {
-    grid-area: right-sidebar;
-  }
-  
-  body {
-    display: grid;
-    grid-template-areas:
-      "header header header header header header"
-      "left-sidebar main main main right-sidebar right-sidebar"
-      "left-sidebar main main main right-sidebar right-sidebar";
-    row-gap: 24px;
-    column-gap: 48px;
-  }
-.auth-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-  
-  /********
-  GLOBAL
-  ********/
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: #000000;
-  }
-  
-  ul {
-    list-style: none;
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  h1,
-  h2 {
-    margin-bottom: 16px;
-  }
-  
-  body {
-    background-color:  #f1fdf5;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 60px;
-    padding: 0px 24px;
-    position: sticky;
-    top: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: #165734;
-    z-index: 1;
-  }
-  
-  .app-logo {
-    height: 35px;
-    width: 35px;
-    border-radius: 100%;
-    overflow: hidden;
-  }
-  
-  .app-logo img {
-    height: 100%;
-    width: 100%;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-info img {
-    height: 32px;
-    width: 32px;
-    border-radius: 100%;
-  }
-  
-  .user-info p {
-    margin-left: 8px;
-    font-weight: 600;
-    font-size: 15px;
-  }
-  
-  .user-info a {
-    display: flex;
-    align-items: center;
-    height: 35px;
-    padding: 8px 12px;
-    margin-right: 16px;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #e53e3e;
-    border-radius: 6px;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .user-info a:hover {
-    background-color: #c53030;
-  }
-  
-  .user-info a i {
-    color: #ffffff;
-    margin-right: 6px;
-  }
-  
-  aside {
-    height: 80vh;
-    position: sticky;
-    top: 84px;
-  }
-  
-  .left-sidebar {
-    width: 250px;
-  }
-  
-  .left-sidebar,
-  .right-sidebar {
-    border-radius: 8px;
-    padding: 16px;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  
-  .left-sidebar {
-    margin-left: 24px;
-  }
-  
-  .left-sidebar li {
-    margin-bottom: 8px;
-  }
-  
-  .left-sidebar a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 8px 10px;
-    border-radius: 6px;
-    transition: all 0.3s;
-  }
-  
-  .left-sidebar a:hover {
-    background-color: #ffffff;
-  }
-  
-  .left-sidebar i {
-    font-size: 20px;
-  }
-  
-  .left-sidebar span {
-    margin-left: 12px;
-    margin-top: 3px;
-  }
-  
-  .right-sidebar {
-    margin-right: 24px;
-  }
-  
-  main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 60px); /* account for sticky header */
-    /*padding: 40px 0;*/
-  }
-  
-  form input,
-  form textarea {
-    font-size: 15px;
-  }
-  
-  button,
-  form input[type="text"],
-  form input[type="date"],
-  form input[type="password"],
-  form textarea {
-    width: 100%;
-    height: 40px;
-    border-radius: 6px;
-  }
-  
-  button {
-    background-color: #165734;
-    color: white;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #468c66;
-  }
-  
-  form div {
-    margin-bottom: 16px;
-  }
-  
-  form label {
-    display: block;
-    margin-bottom: 4px;
-  }
-  
-  form input[type="text"],
-  form input[type="date"],
-  form input[type="password"],
-  form textarea {
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    padding: 0px 16px;
-  }
-  
-  form textarea {
-    height: 80px;
-    padding: 16px;
-    resize: vertical;
-    padding: 12px 16px;
-  }
-  
-  .auth-form {
-    width: 100%;
-    max-width: 400px;
-    padding: 32px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .auth-option {
-    margin-top: 12px;
-    text-align: center;
-    font-size: 15px;
-  }
-  
-  .auth-option a {
-    color: blue;
-  }
-
-
-/* CSS styles for Signup page begins*/
-
-/* Reset some basic elements */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
+    background-color: #fff;
+    font-family: 'Roboto';
 }
 
-#container-signup-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  min-height: 100vh;
-  background-color: #f1fdf5;
+/* 
+    Common CSS styles for all the files ends
+*/
+
+
+
+/* 
+    CSS styles for Login and Signup pages begins
+*/
+#container{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    grid-template-rows: 150px auto 100px;
+    grid-gap: 5px;
+
+    /* vh: viewport height */
+    min-height: 100vh;
+    
+    width: 100%;
+    justify-items: center;
 }
 
-#header-signup-page h1 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #073c7a;
+#header-auth{
+    background-color: #004F2E;
+    color: white;
+    text-align: center;
+    font-size: 38px;
+    width: 100%;
+    height: 100%;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+header h1 
+{
+    margin-top: 20px;
+}
+
+#main-left{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#main-center{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#main-right{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+ 
+#footer-auth{
+    background-color: black;;
+    color: white;
+    width: 100%;
+    text-align: center;
+
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
 }
 
 .auth-form {
-  background-color: white;
-  border: 2px solid #073c7a;
-  border-radius: 12px;
-  padding: 30px 24px;
-  max-width: 420px;
-  width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 60px;
+    border: 2px solid #dedede;
+    padding: 0px 20px 40px 20px;
+    border-radius: 10px;
+    width: 100%;
 }
 
-#header-signup {
-  font-size: 1.5rem;
-  margin-bottom: 24px;
-  text-align: center;
-  color: #073c7a;
-}
-
-.input-field {
-  margin-bottom: 18px;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-field label {
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-
-.input-field input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.3s;
-}
-
-.input-field input:focus {
-  border-color: #073c7a;
-  outline: none;
-}
-
-button[type="submit"] {
-  padding: 10px;
-  background-color: #073c7a;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #052f61;
-}
-
-.error-text {
-  color: red;
-  font-style: italic;
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-.hidden {
-  display: none;
-}
-
-.invalid {
-  border: 2px solid red !important;
+input {
+    float: right;
+    margin-left: 30px;
+    width: 200px;
 }
 
 .foot-note {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
+    margin-left: 20px;
 }
 
-.foot-note a {
-  color: #073c7a;
-  text-decoration: none;
+.form-submit {
+    width: 100px;
 }
 
-.foot-note a:hover {
-  text-decoration: underline;
+.input-field {
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+.input-field:first-child {
+    margin-top: 15px;
+  }
+
+.footer-text{
+    margin-top: 35px;
+    font-size: 20px;
 }
 
 /* 
