@@ -1,95 +1,67 @@
 <!DOCTYPE html>
 <html lang="en-US">
-
-<head >
+<head>
   <meta charset="utf-8" />
-        <title>Sign up</title>
-        <link rel="stylesheet" type="text/css" href="./styles.css" />
-        <meta name="referrer" content="unsafe-url"/>
-        <script src = "js/eventHandler.js"></script>
-    </head>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <meta name="referrer" content="unsafe-url" />
+  <script src="eventHandler.js" ></script>
+</head>
 
-    <body>
-   <div id="container-signup-page">
-        <div id="header-signup-page">
+<body>
+  <div id="container-signup-page">
+    <header id="header-signup-page">
+      <h1>Budget Tracker</h1>
+    </header>
 
-        <h1>Budget tracker</h1>
+    <main id="signup">
+      <form id="signup-form" action="link-to-main-page" method="post" class="auth-form" novalidate>
+        <h3 id="header-signup">Create an account</h3>
 
+        <div class="input-field">
+          <label for="fname">Full Name</label>
+          <input type="text" id="fname" name="fname" required />
+        </div>
+
+        <div class="input-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+          <p id="error-text-email" class="error-text hidden">Please enter a valid email address.</p>
+        </div>
+
+        <div class="input-field">
+          <label for="screenname">Username</label>
+          <input type="text" id="screenname" name="screenname" required />
+          <p id="error-text-screenName" class="error-text hidden">Use letters, numbers, and underscores only.</p>
+        </div>
+
+        <div class="input-field">
+          <label for="pass">Password</label>
+          <input type="password" id="pass" name="pass" required />
+          <p id="error-text-password" class="error-text hidden">Min. 6 chars, 1 special character.</p>
+        </div>
+
+        <div class="input-field">
+          <label for="confirm_pwd">Confirm Password</label>
+          <input type="password" id="confirm_pwd" name="confirm_pwd" required />
+          <p id="error-text-confirm-password" class="error-text hidden">Passwords do not match.</p>
+        </div>
+
+        <div class="input-field">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required />
+        </div>
+
+        <div class="input-field">
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+
+      <div class="foot-note">
+        Already have an account? <a href="login.html">Login here</a>
       </div>
-         
-        <main id="signup">
-            <form id ="signup-form" action = "link to main page..." method ="post" class="auth-form">
-                <h3 id="header-signup">Create an account</h3>
-                <p class="input-field">
-
-                    <!-- label for the full name input -->
-                    <label for="fname">Full Name:</label>
-                    <!-- full name input box -->
-                    <input type="text" name="fname" id="fname" />
-                </p>
-                
-                 <p class=" input-field">
-                    <!-- label for the email input -->
-                    <label for="email">Email:</label>
-                    <!-- email input box -->
-                    <input type="text" name="email" id="email" />
-                    <p id = "error-text-email" class="error-text hidden"> Please enter a valid address format. </p>
-                </p>
-
-                <p class="input-field">
-                
-                    <!-- label for the username input -->
-                    <label for="screenname">User Name:</label>
-                    <!-- username input box -->
-                    <input type="text" name="screenname" id="screenname" />
-                    <p id = "error-text-screenName" class = "error-text hidden"> Plese enter name without spaces or non-word characters.</p>
-                </p>
-                <p class="input-field">
-        
-
-                    <!-- label for the password input -->
-                    <label for="pass">Password:</label>
-                    <!-- password input box -->
-                    <input type="password" name="pass" id="pass" />
-                    <p id ="error-text-password" class = "error-text hidden"> Please enter a password 6 characters long,at least one non-letter character.</p>
-                </p>
-                <p class="input-field">
-
-                    <!-- label for the confirm-password input -->
-                    <label for="confirm_pwd">Confirm Password:</label>
-                    <!-- confirm-password input box -->
-                    <input type="password" name="comfirm_pwd" id="confirm_pwd" />
-                    <p id = "error-text-confirm-password" class = "error-text hidden"> Password doesn't match </p>
-                </p>
-                <p class="input-field">
-
-                    <!-- label for the date of birth input -->
-                    <label for="dob">Date of Birth:</label>
-                    <!-- date of birth input box -->
-                    <input type="date" name="dob" id="dob" />
-                </p>
-                
-
-                <p class="input-field">
-
-                    <!-- The form should have a submit button and 
-                     necessary form-attributes for redirecting users
-                     to appropriate pages-->
-                     <input type="submit" value="Sign Up!" />
-                </p>
-            </form>
-            <div class="foot-note">
-
-                <!-- add login link -->
-                <a href="login.html">Login here</a>
-            </div>
-        </main>
-
-
-       
-    </div>
-
-    <script src = "js/eventRegisterSignup.js"> </script>
+    </main>
+  </div>
+  <script src="eventRegisterSignup.js"></script>
 </body>
-
 </html>
