@@ -10,19 +10,22 @@
 
   <body>
     <!-- Header Section -->
-    <header>
+   <!-- <header>
       <div class="app-logo">
-        <!-- FIXED: Corrected alt attribute syntax -->
+        <!-- FIXED: Corrected alt attribute syntax --
         <img src="logo.png" alt="App Logo" />
       </div>
+    </header>-->
+    <header class="auth-header">
+      <h1>Budget Tracker</h1>
     </header>
 
-    <!-- Main Layout -->
+    <!-- Main Layout --
     <main>
-      <!-- FIXED: Removed broken nested comment and added heading -->
+      <!-- FIXED: Removed broken nested comment and added heading --
       <div class="auth-container">
         <form class="auth-form" action="mainpage.html" id="login-page">
-          <h2 class="auth-header">Login</h2> <!-- FIXED: Uncommented heading -->
+          <h2 class="auth-header">Login</h2> <!-- FIXED: Uncommented heading --
           <div>
             <label for="username">Username</label>
             <input type="text" id="username" name="username" />
@@ -35,17 +38,45 @@
           </div>
           <button type="submit">Login</button>
         </form>
-           <!-- FIXED: Moved foot-note outside form and formatted -->
+           <!-- FIXED: Moved foot-note outside form and formatted --
         <div class="auth-option">
           <p>Don't have an account? <a href="signup.html">Signup</a></p>
         </div>
       </div>
     </main> <!-- FIXED: Closed main tag -->
-    <footer id="footer-auth">
+    <main class="auth-container">
+      <form class="auth-form" action="mainpage.html" id="login-page">
+        <h2 class="form-title">Login</h2>
+    
+        <div class="input-field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" />
+          <p id="error-text-username" class="error-text hidden">Username is invalid</p>
+        </div>
+    
+        <div class="input-field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" />
+          <p id="error-text-password" class="error-text hidden">Password is invalid</p>
+        </div>
+    
+        <button type="submit">Login</button>
+      </form>
+    
+      <div class="auth-option">
+        Don't have an account? <a href="signup.html">Signup</a>
+      </div>
+    </main>
+
+   <!-- <footer id="footer-auth">
             <p class="footer-text">BudgetWise - Personal Budget Tracker</p>
         </footer>
 
     <!-- FIXED: Corrected 'src' spelling -->
+    <footer class="auth-footer">
+      <p class="footer-text">BudgetWise - Personal Budget Tracker</p>
+    </footer>
+
    <script src="eventRegisterLogin.js"></script>
   </body>
 </html>
