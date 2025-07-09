@@ -263,112 +263,113 @@ header {
 
 /* CSS styles for Signup page begins*/
 
-#container-signup-page{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f1fdf5;
-    padding: 20px;
+/* Reset some basic elements */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
-#header-signup-page {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-    width: 100%;
+#container-signup-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+  background-color: #f1fdf5;
 }
 
-#header-signup
-{
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+#header-signup-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #073c7a;
 }
 
-#signup{
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
+.auth-form {
+  background-color: white;
+  border: 2px solid #073c7a;
+  border-radius: 12px;
+  padding: 30px 24px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
- 
 
-#signup .auth-form {
-    margin-top: 20px;
-    border: 5px solid #073c7ac8;
-    border-radius: 20px;
-    padding: 20px 24px 32px 24px;
-    width: 100%;
-    max-width: 400px;
+#header-signup {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #073c7a;
+}
+
+.input-field {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field label {
+  margin-bottom: 6px;
+  font-weight: 500;
 }
 
 .input-field input {
-  
-    float: right ;
-   
-    margin-right: 9px;
-    padding: 5px;
-
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s;
 }
 
+.input-field input:focus {
+  border-color: #073c7a;
+  outline: none;
+}
 
-.input-field{
-    margin-bottom: 16px;
+button[type="submit"] {
+  padding: 10px;
+  background-color: #073c7a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #052f61;
 }
 
 .error-text {
-    color: red;
-    font-style: italic;
-    text-align: right;
-    font-size: 12px;
-    margin-top: 5px;
-
-} 
-.hidden{
-    visibility: hidden;
+  color: red;
+  font-style: italic;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
-.error-input {
-    border: 2px solid red;
-   
+.hidden {
+  display: none;
 }
 
-.creation-containers .error-text {
-    color: red;
-    font-style: italic;
-    text-align:left;
-    font-size: 12px;
-    margin-top: 5px;
+.invalid {
+  border: 2px solid red !important;
 }
-
- .invalid{
-    border: 2px solid red; 
- }
 
 .foot-note {
-    margin-top: 20px;
-    text-align: center;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
 }
 
-#footer-auth{
-    background-color: black;;
-    color: white;
-    width: 100%;
-    text-align: center;
-
-    grid-column-start: 1;
-    grid-column-end: end;
-    grid-row-start: 3;
-    grid-row-end: 4;
+.foot-note a {
+  color: #073c7a;
+  text-decoration: none;
 }
-.footer-text{
-    color: white;
-    margin-top: 35px;
-    font-size: 20px;
+
+.foot-note a:hover {
+  text-decoration: underline;
 }
 
 /* 
