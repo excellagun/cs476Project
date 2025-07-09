@@ -54,8 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }*/
 
     // Declare $target_file here so we can use it later
-    // $target_file = "";
-    // TODO 5: try to make a MySQL connection
+    $target_file = "";
+    //  try to make a MySQL connection
     //         catch and report any  errors
     /* ??? */ 
          try {
@@ -69,13 +69,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }
 
 
-    // SQL query that finds matches for the username in the Users table
-    $query = "select * from Users where Username = '$username'";
+    // write a SQL query that finds matches for the username in the Loggers table
+    $query = "select * from Users where username = '$username'";
 
-    // use PDO::query() to run the query
+    //use PDO::query() to run the query
     $result = $db->query($query);
 
-    //use PDOStatement::fetch() to get the value of the first result of the query
+    // use PDOStatement::fetch() to get the value of the first result of the query
 
     $match = $result->fetch();    ///it was $match = 0;
 
@@ -86,19 +86,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     
     //If there are no errors so far we can try inserting a user
     if (empty($errors)) {
+
+        // use PDO::exec() with an INSERT INTO statement to store the user's details in the Loggers table.
+       
         $query = "insert into Users(Email, Username, PasswordHash ) values('$email','$username','$password')";
         $result = $db->exec($query);
 
         if (!$result) {
             $errors["Database Error:"] = "Failed to insert user info";
         } else 
-         // TODO 8a: close the database connection
+         // close the database connection
                     $db = null;
                     
-                    // TODO 8b: redirect the user to the login page
+                    //  redirect the user to the login page
                     header("Location: main_page.php");
             
-                    // TODO 8c: exit the php script
+                    //  exit the php script
                     exit();
     } 
      if (!empty($errors)) {
@@ -129,11 +132,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <form id="signup-form" action="mainpage.html" method="post" class="auth-form" novalidate>
           <h2 class="form-title">Create an account</h2>
   
-          <div class="input-field">
+          <!-- <div class="input-field">
             <label for="fname">Full Name</label>
             <input type="text" id="fname" name="fname" required />
-          </div>
-  
+          </div> -->
           <div class="input-field">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required />
@@ -158,10 +160,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             <p id="error-text-confirm-password" class="error-text hidden">Passwords do not match.</p>
           </div>
   
-          <div class="input-field">
+          <!--<div class="input-field">
             <label for="dob">Date of Birth</label>
             <input type="date" id="dob" name="dob" required />
-          </div>
+          </div>-->
   
           <div class="input-field">
             <button type="submit">Sign Up</button>
