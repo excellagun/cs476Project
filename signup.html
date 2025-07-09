@@ -2,66 +2,66 @@
 <html lang="en-US">
 <head>
   <meta charset="utf-8" />
-  <title>Sign Up</title>
+  <title>Sign Up - BudgetWise</title>
   <link rel="stylesheet" href="./styles.css" />
-  <meta name="referrer" content="unsafe-url" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="eventHandler.js" ></script>
 </head>
 
-<body>
-  <div id="container-signup-page">
-    <header id="header-signup-page">
+  <body>
+    <header class="auth-header">
       <h1>Budget Tracker</h1>
     </header>
-
-    <main id="signup">
-      <form id="signup-form" action="link-to-main-page" method="post" class="auth-form" novalidate>
-        <h3 id="header-signup">Create an account</h3>
-
-        <div class="input-field">
-          <label for="fname">Full Name</label>
-          <input type="text" id="fname" name="fname" required />
+    <main class="auth-container">
+        <form id="signup-form" action="link-to-main-page" method="post" class="auth-form" novalidate>
+          <h2 class="form-title">Create an account</h2>
+  
+          <div class="input-field">
+            <label for="fname">Full Name</label>
+            <input type="text" id="fname" name="fname" required />
+          </div>
+  
+          <div class="input-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+            <p id="error-text-email" class="error-text hidden">Please enter a valid email address.</p>
+          </div>
+  
+          <div class="input-field">
+            <label for="screenname">Username</label>
+            <input type="text" id="screenname" name="screenname" required />
+            <p id="error-text-screenName" class="error-text hidden">Use letters, numbers, and underscores only.</p>
+          </div>
+  
+          <div class="input-field">
+            <label for="pass">Password</label>
+            <input type="password" id="pass" name="pass" required />
+            <p id="error-text-password" class="error-text hidden">Min. 8 chars, 1 special character.</p>
+          </div>
+  
+          <div class="input-field">
+            <label for="confirm_pwd">Confirm Password</label>
+            <input type="password" id="confirm_pwd" name="confirm_pwd" required />
+            <p id="error-text-confirm-password" class="error-text hidden">Passwords do not match.</p>
+          </div>
+  
+          <div class="input-field">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required />
+          </div>
+  
+          <div class="input-field">
+            <button type="submit">Sign Up</button>
+          </div>
+        </form>
+  
+        <div class="auth-option">
+          Already have an account? <a href="login.html">Login here</a>
         </div>
-
-        <div class="input-field">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-          <p id="error-text-email" class="error-text hidden">Please enter a valid email address.</p>
-        </div>
-
-        <div class="input-field">
-          <label for="screenname">Username</label>
-          <input type="text" id="screenname" name="screenname" required />
-          <p id="error-text-screenName" class="error-text hidden">Use letters, numbers, and underscores only.</p>
-        </div>
-
-        <div class="input-field">
-          <label for="pass">Password</label>
-          <input type="password" id="pass" name="pass" required />
-          <p id="error-text-password" class="error-text hidden">Min. 6 chars, 1 special character.</p>
-        </div>
-
-        <div class="input-field">
-          <label for="confirm_pwd">Confirm Password</label>
-          <input type="password" id="confirm_pwd" name="confirm_pwd" required />
-          <p id="error-text-confirm-password" class="error-text hidden">Passwords do not match.</p>
-        </div>
-
-        <div class="input-field">
-          <label for="dob">Date of Birth</label>
-          <input type="date" id="dob" name="dob" required />
-        </div>
-
-        <div class="input-field">
-          <button type="submit">Sign Up</button>
-        </div>
-      </form>
-
-      <div class="foot-note">
-        Already have an account? <a href="login.html">Login here</a>
-      </div>
     </main>
-  </div>
-  <script src="eventRegisterSignup.js"></script>
-</body>
+    <footer class="auth-footer">
+      <p class="footer-text">BudgetWise - Personal Budget Tracker</p>
+    </footer>
+    <script src="eventRegisterSignup.js"></script>
+  </body>
 </html>
