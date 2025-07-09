@@ -1,7 +1,7 @@
 var name = document.getElementById("name");
-var uname = document.getElementById("username");
-var pwd = document.getElementById("password");
-var cpwd = document.getElementById("cpassword");
+var uname = document.getElementById("screenname");
+var pwd = document.getElementById("pass");
+var cpwd = document.getElementById("confirm_pwd");
 var dob = document.getElementById("dob");
 var email = document.getElementById("email");
 
