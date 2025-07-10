@@ -552,6 +552,21 @@ button:hover {
   .bw-header {
     padding: 1.5rem;
   }
+  .bw-mobile-nav {
+    display: none; /* shown only when .hidden is removed */
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #fff;
+    padding: 1.5rem;
+    position: absolute;
+    top: 100%;
+    right: 1.5rem;
+    left: 1.5rem;
+    z-index: 999;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+  }
+
 
   .bw-mobile-nav a {
     text-decoration: none;
