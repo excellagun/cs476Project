@@ -16,38 +16,40 @@
   <body>
     <div class="bw-wrapper">
       <!-- Header -->
-      <header class="bw-header">
-        <div class="bw-logo">BudgetWise</div>
-        
-        <button class="bw-hamburger" onclick="toggleMobileNav()" aria-label="Toggle navigation">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect y="4" width="24" height="2" fill="#333"/>
-    <rect y="11" width="24" height="2" fill="#333"/>
-    <rect y="18" width="24" height="2" fill="#333"/>
-  </svg>
-</button>
-        <div class="bw-header-right bw-desktop-nav">
-          <nav class="bw-nav">
-            <a href="#">Home</a>
-            <a href="#features">Features</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#blog">Blog</a>
-            <a href="login.html">Sign In</a>
-          </nav>
-          <a href="./signup.html" class="bw-cta">Sign Up</a>
-        </div>
+     <header class="bw-header">
+  <div class="bw-logo">BudgetWise</div>
 
-        <!-- Mobile Dropdown Navigation -->
-<div id="bw-mobile-menu" class="bw-mobile-nav hidden">
-  <a href="#">Home</a>
-  <a href="#features">Features</a>
-  <a href="#how-it-works">How It Works</a>
-  <a href="#blog">Blog</a>
-  <a href="login.html">Sign In</a>
-  <a href="./signup.html" class="bw-cta">Sign Up</a>
-</div>
-      </header>
+  <!-- Hamburger (mobile only) -->
+  <button class="bw-hamburger" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <rect y="4" width="24" height="2" fill="#333"/>
+      <rect y="11" width="24" height="2" fill="#333"/>
+      <rect y="18" width="24" height="2" fill="#333"/>
+    </svg>
+  </button>
 
+  <!-- Desktop Nav -->
+  <div class="bw-header-right bw-desktop-nav">
+    <nav class="bw-nav">
+      <a href="#">Home</a>
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#blog">Blog</a>
+      <a href="login.html">Sign In</a>
+    </nav>
+    <a href="./signup.html" class="bw-cta">Sign Up</a>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div id="bw-mobile-menu" class="bw-mobile-nav hidden">
+    <a href="#">Home</a>
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#blog">Blog</a>
+    <a href="login.html">Sign In</a>
+    <a href="./signup.html" class="bw-cta">Sign Up</a>
+  </div>
+</header>
       <!-- Hero Section -->
       <section class="bw-hero">
         <div class="bw-hero-text">
