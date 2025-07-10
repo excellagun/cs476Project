@@ -224,30 +224,6 @@ button:hover {
   display: none;
 }
 
-/* Responsive behavior */
-@media (max-width: 768px) {
- .bw-hamburger {
-    display: flex;
-  }
-
-  .bw-desktop-nav {
-    display: none;
-  }
-
-  .bw-header {
-    padding: 1.5rem;
-  }
-
-  .bw-mobile-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-
-  .bw-mobile-nav .bw-cta {
-    text-align: center;
-  }
-}
 /* === Hero Section === */
 .bw-hero {
   display: flex;
@@ -564,5 +540,27 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
+@media (max-width: 768px) {
+  .bw-hamburger {
+    display: flex;
+  }
 
+  .bw-desktop-nav {
+    display: none;
+  }
+
+  .bw-header {
+    padding: 1.5rem;
+  }
+
+  .bw-mobile-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .bw-mobile-nav .bw-cta {
+    text-align: center;
+  }
+}
 /*index page ends*/
