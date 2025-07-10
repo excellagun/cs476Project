@@ -189,6 +189,12 @@ button:hover {
   white-space: nowrap;
 }
 /* Hide hamburger by default */
+/* Base styles */
+.hidden {
+  display: none !important;
+}
+
+/* Hamburger */
 .bw-hamburger {
   font-size: 24px;
   background: none;
@@ -198,31 +204,62 @@ button:hover {
   margin: 0;
   width: 40px;
   height: 40px;
-  display: none; 
   align-items: center;
   justify-content: center;
+  display: none; /* hidden by default (desktop) */
 }
 
-/* Mobile nav dropdown (initially hidden) */
+/* SVG fix */
+.bw-hamburger svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Mobile nav (dropdown) */
 .bw-mobile-nav {
-   display: flex;
+  display: none;
   flex-direction: column;
   gap: 1rem;
   background-color: #fff;
   padding: 1.5rem;
   position: absolute;
   top: 100%;
-  right: 3rem;
-  left: 3rem;
+  right: 1.5rem;
+  left: 1.5rem;
   z-index: 999;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
 }
 
-/* Utility class to hide menu */
-.hidden {
-  display: none;
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .bw-hamburger {
+    display: flex;
+  }
+
+  .bw-desktop-nav {
+    display: none;
+  }
+
+  .bw-mobile-nav {
+    display: flex;
+  }
+
+  .bw-mobile-nav.hidden {
+    display: none !important;
+  }
+
+  .bw-mobile-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .bw-mobile-nav .bw-cta {
+    text-align: center;
+  }
 }
+
 
 /* === Hero Section === */
 .bw-hero {
@@ -540,42 +577,5 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
-@media (max-width: 768px) {
-  .bw-hamburger {
-    display: flex;
-  }
 
-  .bw-desktop-nav {
-    display: none;
-  }
-
-  .bw-header {
-    padding: 1.5rem;
-  }
-  .bw-mobile-nav {
-    display: none; /* shown only when .hidden is removed */
-    flex-direction: column;
-    gap: 1rem;
-    background-color: #fff;
-    padding: 1.5rem;
-    position: absolute;
-    top: 100%;
-    right: 1.5rem;
-    left: 1.5rem;
-    z-index: 999;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    border-radius: 8px;
-  }
-
-
-  .bw-mobile-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-
-  .bw-mobile-nav .bw-cta {
-    text-align: center;
-  }
-}
 /*index page ends*/
