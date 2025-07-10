@@ -160,8 +160,9 @@ button:hover {
 }
 
 .bw-logo {
-  font-weight: 700;
-  font-size: 1.5rem;
+  position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .bw-header-right {
