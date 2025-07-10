@@ -156,6 +156,7 @@ button:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   width: 100%;
   position: relative;
+  z-index: 1000;
 }
 
 .bw-logo {
@@ -218,16 +219,16 @@ button:hover {
 
 /* Mobile nav (dropdown) */
 .bw-mobile-nav {
- display: none;
+  display: none;
   flex-direction: column;
   gap: 1rem;
   background-color: #fff;
   padding: 1.5rem;
   position: absolute;
-  top: 100%; /* directly below the header */
-  right: 0;
+  top: 100%; /* right under the header */
   left: 0;
-  z-index: 999;
+  right: 0;
+  z-index: 9999;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
 }
