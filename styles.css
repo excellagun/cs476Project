@@ -188,7 +188,60 @@ button:hover {
   font-weight: 600;
   white-space: nowrap;
 }
+/* Hide hamburger by default */
+.bw-hamburger {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
 
+/* Mobile nav dropdown (initially hidden) */
+.bw-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  position: absolute;
+  top: 100%;
+  right: 3rem;
+  left: 3rem;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+/* Utility class to hide menu */
+.hidden {
+  display: none;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .bw-desktop-nav {
+    display: none;
+  }
+
+  .bw-hamburger {
+    display: block;
+  }
+
+  .bw-header {
+    padding: 1.5rem;
+  }
+
+  .bw-mobile-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .bw-mobile-nav .bw-cta {
+    text-align: center;
+  }
+}
 /* === Hero Section === */
 .bw-hero {
   display: flex;
