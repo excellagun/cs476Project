@@ -1,181 +1,319 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Budget Tracker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f1fdf5;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #165734;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header nav a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .container {
-      display: flex;
-      padding: 2rem;
-      gap: 2rem;
-    }
-    .form, .summary, .history {
-      background-color: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .form {
-      flex: 1;
-    }
-    .summary {
-      flex: 1;
-    }
-    .history {
-      margin-top: 2rem;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      background-color: #165734;
-      color: white;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    td button {
-      background: none;
-      border: none;
-      font-weight: bold;
-      color: red;
-      cursor: pointer;
-    }
-    .summary h3, .history h3 {
-      margin-bottom: 1rem;
-    }
-    .amount-positive {
-      color: green;
-    }
-    .amount-negative {
-      color: red;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    table td, table th {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget Tracker</title>
+<script>
+if (!document.referrer.includes("welcome.html")) {
+    // only allow if already logged in
+    fetch('api.php?action=session_check')
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            window.location.href = "welcome.html";
+        }
+    });
+}
+</script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+<style>
+body { background-color: #E0E5FF; }
+header { background-color: #6272A4; color: white; padding: 1rem 2rem; }
+header nav a { color: white; margin-left: 20px; text-decoration: none; font-weight: bold; }
+.amount-positive { color: green; }
+.amount-negative { color: red; }
+.chat-box { height: 200px; overflow-y: auto; background: #fff; border: 1px solid #ccc; padding: 0.5rem; }
+.chat-message { margin-bottom: 0.5rem; }
+</style>
 </head>
 <body>
-  <header>
-    <div><strong>Budget Tracker</strong></div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Dashboard</a>
-      <a href="#">Export</a>
-      <a href="#">Logout</a>
-    </nav>
-  </header>
 
-  <div class="container">
-    <div class="form">
-      <h3>Add Transaction</h3>
-      <input type="text" id="desc" placeholder="Description">
-      <input type="number" id="amount" placeholder="Amount">
-      <select id="type">
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
-      <button onclick="addTransaction()">Add</button>
+<header class="d-flex justify-content-between align-items-center">
+  <div><strong>Budget Tracker</strong></div>
+  <nav>
+    <a href="welcome.html">Home</a>
+    <a href="#">Dashboard</a>
+    <a href="#" onclick="exportExcel()">Export</a>
+    <a href="#" onclick="clearData()">Clear</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </nav>
+</header>
+
+<div class="container mt-4">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h3>Add Transaction</h3>
+        <input type="text" id="desc" class="form-control mb-2" placeholder="Description">
+        <input type="number" id="amount" class="form-control mb-2" placeholder="Amount">
+        <select id="type" class="form-select mb-2" onchange="toggleCategory()">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <select id="category" class="form-select mb-2">
+          <option value="Food">Food</option>
+          <option value="Transport">Transport</option>
+          <option value="Utilities">Utilities</option>
+          <option value="Other">Other</option>
+        </select>
+        <button onclick="addTransaction()" class="btn btn-success">Add</button>
+      </div>
+
+      
     </div>
 
-    <div class="summary">
-      <h3>Summary</h3>
-      <p>Total Income: <span class="amount-positive" id="totalIncome">$0.00</span></p>
-      <p>Total Expenses: <span class="amount-negative" id="totalExpenses">$0.00</span></p>
-      <p>Balance: <strong id="balance">$0.00</strong></p>
+    <div class="col-md-8">
+      <div class="card p-3 mb-4">
+        <h3>Summary</h3>
+        <p>Total Income: <span class="amount-positive" id="totalIncome">$0.00</span></p>
+        <p>Total Expenses: <span class="amount-negative" id="totalExpenses">$0.00</span></p>
+        <p>Balance: <strong id="balance">$0.00</strong></p>
+        <p>Predicted Next Monthly Expenses: <strong id="predictedExpenses">$0.00 – $0.00</strong></p>
+      </div>
+
+      <div class="card p-3">
+        <h3>Transaction History</h3>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Transaction</th>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="history"></tbody>
+        </table>
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="container">
-    <div class="history" style="width: 100%;">
-      <h3>Transaction History</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Transaction</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody id="history">
-        </tbody>
-      </table>
-    </div>
-  </div>
+<script>
 
-  <script>
-    let transactions = [];
 
-    function addTransaction() {
-      const desc = document.getElementById('desc').value;
-      const amount = parseFloat(document.getElementById('amount').value);
-      const type = document.getElementById('type').value;
+window.onload = () => {
+    fetch('api.php?action=summary')
+    .then(res => res.json())
+    .then(data => {
+        if (data.error && data.error.includes("Unauthorized")) {
+            alert("Please log in first.");
+            window.location.href = "welcome.html";
+        } else {
+            // proceed with loading the page
+            loadSummary();
+            loadPrediction();
+            loadHistory();
+            updateChatUI();
+            toggleCategory();
+        }
+    });
+};
 
-      if (!desc || isNaN(amount)) return alert('Please fill in all fields');
 
-      const id = Date.now(); // Unique ID based on timestamp
-      transactions.push({ id, desc, amount, type });
-      updateUI();
-      document.getElementById('desc').value = '';
-      document.getElementById('amount').value = '';
+
+async function addChatMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    if (!message) return;
+
+    await fetch('api.php?action=chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ message })
+    });
+
+    input.value = '';
+    updateChatUI();
+}
+
+// async function loadSummary() {
+//     const res = await fetch('api.php?action=summary');
+//     const data = await res.json();
+//     const income = (+data.total_income);
+
+//     document.getElementById('totalIncome').textContent = `$${income.toFixed(2)}`;
+//     document.getElementById('totalExpenses').textContent = `$${(+data.total_expenses).toFixed(2)}`;
+//     document.getElementById('balance').textContent = `$${(+data.balance).toFixed(2)}`;
+
+//     if (income === 0) {
+//         showIncomeAlert();
+//     }
+// }
+
+async function loadSummary() {
+    const res = await fetch('api.php?action=summary');
+    const data = await res.json();
+
+    const income = Number(data.total_income) || 0;
+    const expenses = Number(data.total_expenses) || 0;
+    const balance = Number(data.balance) || 0;
+
+    document.getElementById('totalIncome').textContent = `$${income.toFixed(2)}`;
+    document.getElementById('totalExpenses').textContent = `$${expenses.toFixed(2)}`;
+    document.getElementById('balance').textContent = `$${balance.toFixed(2)}`;
+
+    if (income === 0) {
+        showIncomeAlert();
     }
+}
 
-    function deleteTransaction(id) {
-      transactions = transactions.filter(t => t.id !== id);
-      updateUI();
+
+
+
+
+
+function showIncomeAlert() {
+    const existing = document.getElementById('income-alert');
+    if (existing) return; // don't add it twice
+
+    const alertDiv = document.createElement('div');
+    alertDiv.id = 'income-alert';
+    alertDiv.className = 'alert alert-warning text-center';
+    alertDiv.textContent = "🚨 Please add your salary/income first before adding expenses!";
+    document.querySelector('.container').prepend(alertDiv);
+}
+
+
+// async function loadPrediction() {
+//     const res = await fetch('api.php?action=prediction');
+//     const data = await res.json();
+//     document.getElementById('predictedExpenses').textContent =
+//         `$${(+data.lower_bound).toFixed(2)} – $${(+data.upper_bound).toFixed(2)}`;
+// }
+
+async function loadPrediction() {
+    const res = await fetch('api.php?action=prediction');
+    const data = await res.json();
+    if (data.error) {
+        alert(data.error);
+        window.location = 'login.html';
+        return;
     }
+    document.getElementById('predictedExpenses').textContent =
+        `$${(+data.lower_bound).toFixed(2)} – $${(+data.upper_bound).toFixed(2)}`;
+}
 
-    function updateUI() {
-      let income = 0, expenses = 0;
-      let html = '';
 
-      transactions.forEach(t => {
-        if (t.type === 'income') income += t.amount;
-        else expenses += t.amount;
-
+async function loadHistory() {
+    const res = await fetch('api.php?action=history');
+    const transactions = await res.json();
+    let html = '';
+    transactions.forEach(t => {
+        
         html += `<tr>
-          <td>${t.desc}</td>
-          <td class="${t.type === 'income' ? 'amount-positive' : 'amount-negative'}">
-            ${t.type === 'income' ? '+' : '-'}$${t.amount.toFixed(2)}
-            <button onclick="deleteTransaction(${t.id})">x</button>
-          </td>
-        </tr>`;
-      });
+  <td>${new Date(t.date).toLocaleDateString()}</td>
+  <td>${t.description}</td>
+  <td class="${t.type==='income'?'amount-positive':'amount-negative'}">
+    ${t.type==='income'?'+':'-'}$${(+t.amount).toFixed(2)}
+  </td>
+  <td>${t.category||'-'}</td>
+  <td><button onclick="deleteTransaction(${t.id})" class="btn btn-sm btn-danger">Delete</button></td>
+</tr>`;
 
-      document.getElementById('history').innerHTML = html;
-      document.getElementById('totalIncome').textContent = `$${income.toFixed(2)}`;
-      document.getElementById('totalExpenses').textContent = `$${expenses.toFixed(2)}`;
-      document.getElementById('balance').textContent = `$${(income - expenses).toFixed(2)}`;
+    });
+    document.getElementById('history').innerHTML = html || '<tr><td colspan="4" class="text-center">No transactions</td></tr>';
+}
+
+async function addTransaction() {
+    const desc = document.getElementById('desc').value.trim();
+    const amount = parseFloat(document.getElementById('amount').value);
+    const type = document.getElementById('type').value;
+    const category = type === 'expense' ? document.getElementById('category').value : null;
+
+    if (!desc || isNaN(amount)) {
+        alert('Fill all fields');
+        return;
     }
-  </script>
+
+    await fetch('api.php?action=add', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({description:desc, amount, type, category})
+    });
+
+    document.getElementById('desc').value='';
+    document.getElementById('amount').value='';
+    loadSummary();
+    loadPrediction();
+    loadHistory();
+}
+
+async function clearData() {
+    if (!confirm('Clear all transactions and chat?')) return;
+    await fetch('api.php?action=clear');
+    loadSummary();
+    loadPrediction();
+    loadHistory();
+    document.getElementById('chatBox').innerHTML = '';
+}
+
+function toggleCategory() {
+  const type = document.getElementById('type').value;
+  document.getElementById('category').disabled = (type === 'income');
+}
+
+async function exportExcel() {
+    const res = await fetch('api.php?action=history');
+    const transactions = await res.json();
+
+    const wb = XLSX.utils.book_new();
+
+    const txData = [["Date", "Description", "Amount", "Type", "Category"]];
+    transactions.forEach(t => {
+        txData.push([
+            new Date(t.date).toLocaleDateString(),
+            t.description,
+            t.amount,
+            t.type,
+            t.category || "-"
+        ]);
+    });
+    const txSheet = XLSX.utils.aoa_to_sheet(txData);
+    XLSX.utils.book_append_sheet(wb, txSheet, "Transactions");
+
+    XLSX.writeFile(wb, "budget_tracker.xlsx");
+}
+
+
+
+async function deleteTransaction(id) {
+    if (!confirm('Are you sure you want to delete this transaction?')) return;
+
+    await fetch(`api.php?action=delete&id=${id}`);
+    loadSummary();
+    loadPrediction();
+    loadHistory();
+}
+
+async function logout() {
+    if (!confirm("Are you sure you want to log out and delete all your data?")) return;
+
+    await fetch('api.php?action=logout');
+    window.location.href = 'welcome.html';
+}
+
+
+
+
+window.onload = () => {
+    loadSummary();
+    loadPrediction();
+    loadHistory();
+    
+    toggleCategory();
+};
+
+
+</script>
 </body>
 </html>
