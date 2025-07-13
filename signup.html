@@ -1,182 +1,152 @@
-<!--<?php  
-require_once("db.php");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BudgetWise - Sign Up</title>
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data); //encodes
-    return $data;
+<style>
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(to right, #e0e5ff, #f7f8ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
 }
 
-// This variables will keep track of errors and form values
-// we find while processing the form but we'll make them global
-// so we can display POST results on the form when there's an error.
-$errors = array();
-$username = "";
-$password = "";
-//$dob = "";
-$email ="";
-//$fullname="";
+.card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  max-width: 400px;
+  width: 100%;
+}
 
-    // Check whether the form was submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    // If we got here through a POST submitted form, process the form
+.card h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
 
-    // Collect and validate form inputs
-    $email = test_input($_POST["email"]);
-    $username = test_input($_POST["screenname"]);
-    $password = test_input($_POST["pass"]);
-   // $dob = test_input($_POST["dob"]);
-   // $fullname = $_POST["fname"];
-    
-    // Form Field Regular Expressions
-   // $nameRegex = "/^[a-zA-Z]+$/";
-    $unameRegex = "/^[a-zA-Z0-9_]+$/";
-    $passwordRegex = "/^(?=.*[!@#$%^&*()\-_=+\[\]{};:'\",.<>\/?]).{8,}$/"; 
-    // updated password regex to support condition of a minimum of 8 characters
-    //  and 1 special character in html form
-    //$dobRegex = "/^\d{4}[-]\d{2}[-]\d{2}$/";
-    
-    // Validate the form inputs against their Regexes 
-    if(!filter_var($email,FILTER_VALIDATE_EMAIL))
-    {
-        $errors["email"]= "Invalid email";
-    }
-    if (!preg_match($unameRegex, $username)) {
-        $errors["username"] = "Invalid Username";
-    }
-    if (!preg_match($passwordRegex, $password)) {
-        $errors["password"] = "Invalid Password";
-    }
-    /*if (!preg_match($dobRegex, $dob)) {
-        $errors["dob"] = "Invalid DOB";
-    }*/
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
 
-    // Declare $target_file here so we can use it later
-    $target_file = "";
-    //  try to make a MySQL connection
-    //         catch and report any  errors
-    /* ??? */ 
-         try {
-            $db= new PDO($attr, $db_user, $db_pwd, $options);
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #6272a4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-            $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+button:hover {
+  background: #4f5d8c;
+}
 
-        }
-    catch (PDOException $e ) {
-        die ("PDO Error >> " . $e->getMessage() . "\n<br />");
-    }
+p {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 1rem;
+}
 
+p a {
+  color: #6272a4;
+  text-decoration: none;
+}
 
-    // write a SQL query that finds matches for the username in the Loggers table
-    $query = "select * from Users where username = '$username'";
+#errorMsg {
+  color: red;
+  font-size: 13px;
+  text-align: center;
+}
 
-    //use PDO::query() to run the query
-    $result = $db->query($query);
-
-    // use PDOStatement::fetch() to get the value of the first result of the query
-
-    $match = $result->fetch();    ///it was $match = 0;
-
-    // If that email address is already taken
-    if ($match) {
-        $errors["Account Taken"] = "A user with that username already exists.";
-    }
-    
-    //If there are no errors so far we can try inserting a user
-    if (empty($errors)) {
-
-        // use PDO::exec() with an INSERT INTO statement to store the user's details in the Loggers table.
-       
-        $query = "insert into Users(Email, Username, PasswordHash ) values('$email','$username','$password')";
-        $result = $db->exec($query);
-
-        if (!$result) {
-            $errors["Database Error:"] = "Failed to insert user info";
-        } else 
-         // close the database connection
-                    $db = null;
-                    
-                    //  redirect the user to the login page
-                    header("Location: main_page.php");
-            
-                    //  exit the php script
-                    exit();
-    } 
-     if (!empty($errors)) {
-        foreach($errors as $type => $message) {
-            print("$type: $message \n<br />");
-        }
-    }
-
-} // submit method was POST
-
-?> -->
-
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <meta charset="utf-8" />
-  <title>Sign Up - BudgetWise</title>
-  <link rel="stylesheet" href="./styles.css" /><!--stylee.css-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="eventHandlers.js" ></script>
+#successMsg {
+  color: green;
+  font-size: 13px;
+  text-align: center;
+}
+</style>
 </head>
 
-  <body>
-    <header class="auth-header">
-      <h1>Budget Tracker</h1>
-    </header>
-    <main class="auth-container">
-        <form id="signup-form" action="mainpage.html" method="post" class="auth-form" novalidate>
-          <h2 class="form-title">Create an account</h2>
-  
-          <!-- <div class="input-field">
-            <label for="fname">Full Name</label>
-            <input type="text" id="fname" name="fname" required />
-          </div> -->
-          <div class="input-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
-            <p id="error-text-email" class="error-text hidden">Please enter a valid email address.</p>
-          </div>
-  
-          <div class="input-field">
-            <label for="screenname">Username</label>
-            <input type="text" id="screenname" name="screenname" required />
-            <p id="error-text-screenName" class="error-text hidden">Use letters, numbers, and underscores only.</p>
-          </div>
-  
-          <div class="input-field">
-            <label for="pass">Password</label>
-            <input type="password" id="pass" name="pass" required />
-            <p id="error-text-password" class="error-text hidden">Min. 8 chars, 1 special character.</p>
-          </div>
-  
-          <div class="input-field">
-            <label for="confirm_pwd">Confirm Password</label>
-            <input type="password" id="confirm_pwd" name="confirm_pwd" required />
-            <p id="error-text-confirm-password" class="error-text hidden">Passwords do not match.</p>
-          </div>
-  
-          <div class="input-field">
-            <label for="dob">Date of Birth</label>
-            <input type="date" id="dob" name="dob" required />
-          </div>
-  
-          <div class="input-field">
-            <button type="submit">Sign Up</button>
-          </div>
-        </form>
-  
-        <div class="auth-option">
-          Already have an account? <a href="login.html">Login here</a>
-        </div>
-    </main>
-    <footer class="auth-footer">
-      <p class="footer-text">BudgetWise - Personal Budget Tracker</p>
-    </footer>
-    <script src="eventRegisterSignup.js"></script>
-  </body>
+<body>
+
+<div class="card">
+  <h2>Create an Account</h2>
+
+  <form id="signupForm">
+    <div id="errorMsg"></div>
+    <div id="successMsg"></div>
+
+    <input type="text" name="username" placeholder="Username" required
+      pattern="^[a-zA-Z0-9_]{3,20}$" title="3–20 characters: letters, numbers, underscores">
+
+    <input type="password" name="password" placeholder="Password" required
+      pattern=".{6,}" title="At least 6 characters">
+
+    <label style="font-size: 13px;">
+      <input type="checkbox" id="terms" required> I agree to the <a href="#">terms</a>.
+    </label>
+
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <p>Already have an account? <a href="login.html">Log in</a></p>
+</div>
+
+<script>
+document.getElementById('signupForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const err = document.getElementById('errorMsg');
+  const ok = document.getElementById('successMsg');
+  err.textContent = ''; ok.textContent = '';
+
+  const fd = new FormData(e.target);
+  const username = fd.get('username').trim();
+  const password = fd.get('password').trim();
+
+  if (!document.getElementById('terms').checked) {
+    err.textContent = 'Please agree to the terms.';
+    return;
+  }
+
+  const usernamePattern = /^[a-zA-Z0-9_]{3,20}$/;
+  if (!usernamePattern.test(username)) {
+    err.textContent = 'Invalid username.';
+    return;
+  }
+
+  if (password.length < 6) {
+    err.textContent = 'Password too short.';
+    return;
+  }
+
+  const res = await fetch('api.php?action=signup', {
+    method: 'POST',
+    body: JSON.stringify(Object.fromEntries(fd)),
+    headers: {'Content-Type': 'application/json'}
+  });
+  const r = await res.json();
+
+  if (r.success) {
+    ok.textContent = 'Signup successful! Redirecting...';
+    setTimeout(() => window.location = 'test.html', 1000);
+  } else {
+    err.textContent = r.error || 'Signup failed.';
+  }
+};
+</script>
+
+</body>
 </html>
