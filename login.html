@@ -1,48 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" /> <!-- FIXED: spacing -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - BudgetWise</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="eventHandlers.js"></script>
-  </head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BudgetWise - Login</title>
 
-  <body>
-    <header class="auth-header">
-      <h1>Budget Tracker</h1>
-    </header>
+<style>
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(to right, #e0e5ff, #f7f8ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
 
-    <!-- Main Layout -->
-    
-    <main class="auth-container">
-      <form class="auth-form" action="http://www.webdev.cs.uregina.ca/~cmo153/test.html" id="login-page">
-        <h2 class="form-title">Login</h2>
-    
-        <div class="input-field">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" />
-          <p id="error-text-username" class="error-text hidden">Username is invalid</p>
-        </div>
-    
-        <div class="input-field">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" />
-          <p id="error-text-password" class="error-text hidden">Password is invalid</p>
-        </div>
-    
-        <button type="submit">Login</button>
-      </form>
-    
-      <div class="auth-option">
-        Don't have an account? <a href="signup.html">Signup</a>
-      </div>
-    </main>
+.card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  max-width: 400px;
+  width: 100%;
+}
 
-    <footer class="auth-footer">
-      <p class="footer-text">BudgetWise - Personal Budget Tracker</p>
-    </footer>
+.card h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
 
-   <script src="eventRegisterLogin.js"></script>
-  </body>
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #6272a4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4f5d8c;
+}
+
+p {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+p a {
+  color: #6272a4;
+  text-decoration: none;
+}
+
+#errorMsg {
+  color: red;
+  font-size: 13px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Welcome Back</h2>
+
+  <form id="loginForm">
+    <div id="errorMsg"></div>
+
+    <input type="text" name="username" placeholder="Username" required
+      pattern="^[a-zA-Z0-9_]{3,20}$" title="3–20 characters: letters, numbers, underscores">
+
+    <input type="password" name="password" placeholder="Password" required
+      pattern=".{6,}" title="At least 6 characters">
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <p>Don’t have an account? <a href="signup.html">Sign up</a></p>
+</div>
+
+<script>
+document.getElementById('loginForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const err = document.getElementById('errorMsg');
+  err.textContent = '';
+
+  const fd = new FormData(e.target);
+
+  const res = await fetch('api.php?action=login', {
+    method: 'POST',
+    body: JSON.stringify(Object.fromEntries(fd)),
+    headers: {'Content-Type': 'application/json'}
+  });
+  const r = await res.json();
+
+  if (r.success) {
+    window.location = 'test.html';
+  } else {
+    err.textContent = r.error || 'Login failed.';
+  }
+};
+</script>
+
+</body>
 </html>
