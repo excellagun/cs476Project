@@ -84,7 +84,7 @@ function usernameHandler(event){
 }
 function pwdHandler(event){
 	var pwd = event.target;
-	if (pwd.value.length !>= 6) {
+	if (pwd.value.length < 6) {
 		console.log("Password should be exactly 6 characters long");
 	}
 }
