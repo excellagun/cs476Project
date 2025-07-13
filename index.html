@@ -1,174 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BudgetWise - Personal Budget App</title>
-    <link rel="stylesheet" href ="./styles.css"/>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BudgetWise - Welcome</title>
 
-    <!-- Lottie Files -->
-    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.3.0/dist/dotlottie-wc.js" type="module"></script>
+<style>
+/* 🔷 YOUR FULL CSS STYLES (exact colors and layout you gave earlier) */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #e0e5ff;
+  margin: 0;
+  color: #333;
+}
+.bw-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.bw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.bw-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.bw-header-right {
+  display: flex;
+  align-items: center;
+}
+.bw-nav {
+  display: flex;
+  gap: 1rem;
+}
+.bw-nav a {
+  text-decoration: none;
+  color: #333;
+}
+.bw-cta {
+  background: #6272a4;
+  color: white;
+  padding: 0.4rem 1rem;
+  text-decoration: none;
+  margin-left: 1rem;
+  border-radius: 4px;
+}
+.bw-hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: #f9f9fb;
+}
+.bw-hero-text {
+  max-width: 600px;
+}
+.bw-hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.bw-hero-text p {
+  font-size: 1.2rem;
+}
+.bw-hero-image img {
+  max-width: 100%;
+}
+.bw-section {
+  padding: 2rem;
+  background: #fff;
+}
+.bw-section-heading {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.bw-feature-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+.bw-feature-card {
+  background: #eef2ff;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center;
+}
+.bw-cta-banner {
+  background: #eef2ff;
+  text-align: center;
+  padding: 2rem;
+}
+.bw-footer {
+  text-align: center;
+  background: #6272a4;
+  color: white;
+  padding: 1rem;
+  margin-top: auto;
+}
+</style>
 
-    <!-- GSAP Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  </head>
-  <body>
-    <div class="bw-wrapper">
-      <!-- Header -->
-    <header class="bw-header">
+<script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.3.0/dist/dotlottie-wc.js" type="module"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+<div class="bw-wrapper">
+
+<header class="bw-header">
   <div class="bw-logo">BudgetWise</div>
-
-  <!-- Hamburger (mobile only) -->
-  <button class="bw-hamburger" onclick="toggleMobileNav()" aria-label="Toggle navigation">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <rect y="4" width="24" height="2" fill="#333"/>
-      <rect y="11" width="24" height="2" fill="#333"/>
-      <rect y="18" width="24" height="2" fill="#333"/>
-    </svg>
-  </button>
-
-  <!-- Desktop nav -->
-  <div class="bw-header-right bw-desktop-nav">
+  <div class="bw-header-right">
     <nav class="bw-nav">
-      <a href="#">Home</a>
+      <a href="welcome.html">Home</a>
       <a href="#features">Features</a>
       <a href="#how-it-works">How It Works</a>
       <a href="login.html">Sign In</a>
     </nav>
-    <a href="./signup.html" class="bw-cta">Sign Up</a>
-  </div>
-
-  <!-- Mobile nav (hidden by default) -->
-  <div id="bw-mobile-menu" class="bw-mobile-nav hidden">
-    <a href="#">Home</a>
-    <a href="#features">Features</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="login.html">Sign In</a>
-    <a href="./signup.html" class="bw-cta">Sign Up</a>
+    <a href="signup.html" class="bw-cta">Sign Up</a>
   </div>
 </header>
 
-      <!-- Hero Section -->
-      <section class="bw-hero">
-        <div class="bw-hero-text">
-          <h1>Personal Budget Tracker</h1>
-          <p>Track your income and expenses, set goals, and get spending predictions.</p>
-          <a href="./signup.html" class="bw-cta">Get Started</a>
-        </div>
-        <div class="bw-hero-image">
-          <img src="./photos/Money stress-pana.png" alt="Budget illustration" />
-        </div>
-      </section>
+<section class="bw-hero">
+  <div class="bw-hero-text">
+    <h1>Personal Budget Tracker</h1>
+    <p>Track your income and expenses, set goals, and get spending predictions.</p>
+    <a href="signup.html" class="bw-cta">Get Started</a>
+  </div>
+  <div class="bw-hero-image">
+    <img src="./photos/Money stress-pana.png" alt="Budget illustration">
+  </div>
+</section>
 
-      <!-- How It Works -->
-      <section class="bw-section" id="how-it-works">
-        <h2 class="bw-section-heading">How It Works</h2>
-        <div class="bw-howitworks-grid">
-          <div class="bw-howitworks-text">
-            <div class="bw-card">1. Input or Sync Your Accounts</div>
-            <div class="bw-card">2. View Your Dashboard</div>
-            <div class="bw-card">3. Receive Smart Predictions</div>
-          </div>
-          <div class="bw-howitworks-animation">
-            <dotlottie-wc
-              src="https://lottie.host/546e5ea9-4afe-4bf3-b25d-801f8015fe15/JbUTuI5xNT.lottie"
-              autoplay loop
-              style="width: 100%; max-width: 400px;"
-            ></dotlottie-wc>
-          </div>
-        </div>
-      </section>
+<section class="bw-section" id="how-it-works">
+  <h2 class="bw-section-heading">How It Works</h2>
+  <div class="bw-feature-grid">
+    <div class="bw-feature-card">Input or Sync Your Accounts</div>
+    <div class="bw-feature-card">View Your Dashboard</div>
+    <div class="bw-feature-card">Receive Smart Predictions</div>
+  </div>
+</section>
 
-      <!-- Features Section -->
-      <section class="bw-section" id="features">
-        <h2 class="bw-section-heading">Everything You Need in One App</h2>
-        <div class="bw-feature-grid">
-          <div class="bw-card bw-feature-card">
-            <img src="./photos/Manage money-bro.png" alt="Track" class="bw-feature-icon" />
-            <h3>Track Every Dollar</h3>
-            <p>Stay on top of your income and expenses in real time.</p>
-          </div>
-          <div class="bw-card bw-feature-card">
-            <img src="./photos/Teleportation-pana.png" alt="Predict" class="bw-feature-icon" />
-            <h3>Predict Future Expenses</h3>
-            <p> Our forecasts help you plan ahead with confidence.</p>
-          </div>
-          <div class="bw-card bw-feature-card">
-            <img src="./photos/Mobile login-rafiki.png" alt="Mobile" class="bw-feature-icon" />
-            <h3>Mobile Friendly</h3>
-            <p>Manage your budget from anywhere on any device.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Free Prediction Section -->
-      <section class="bw-section" id="free-prediction">
-        <h2 class="bw-section-heading">Get a Free Spending Prediction</h2>
-        <p style="text-align:center; max-width:600px; margin: 0 auto 2rem;">
-          Try our AI model and see what you might save or spend next month. No sign-up required.
-        </p>
-        <div style="text-align: center;">
-          <a href="#prediction" class="bw-cta">Generate My Prediction</a>
-        </div>
-      </section>
-
-     
-      <!-- CTA Banner -->
-      <section class="bw-cta-banner">
-        <div class="bw-cta-text">
-          <h2>Ready to Take Control of Your Budget?</h2>
-          <p>Join thousands using BudgetWise to manage their money smarter.</p>
-          <a href="./signup.html" class="bw-cta">Start Free</a>
-        </div>
-        <div class="bw-cta-image">
-          <img src="./photos/Banknote-rafiki.png" alt="Money saving illustration" />
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="bw-footer">
-        <p>&copy; 2025 BudgetWise. All rights reserved.</p>
-        <p><a href="#">About</a> | <a href="#">Blog</a> | <a href="#">Contact</a> | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
-      </footer>
+<section class="bw-section" id="features">
+  <h2 class="bw-section-heading">Everything You Need</h2>
+  <div class="bw-feature-grid">
+    <div class="bw-feature-card">
+      <h3>Track Every Dollar</h3>
+      <p>Stay on top of your income and expenses in real time.</p>
     </div>
+    <div class="bw-feature-card">
+      <h3>Predict Future Expenses</h3>
+      <p>Plan ahead with confidence using smart forecasts.</p>
+    </div>
+    <div class="bw-feature-card">
+      <h3>Mobile Friendly</h3>
+      <p>Manage your budget anywhere on any device.</p>
+    </div>
+  </div>
+</section>
 
-    <!-- GSAP Scroll Animations -->
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        gsap.registerPlugin(ScrollTrigger);
+<section class="bw-section" id="free-prediction">
+  <h2 class="bw-section-heading">Get a Free Prediction</h2>
+  <p style="text-align:center;">Try our AI model now — no signup required.</p>
+  <div style="text-align:center;margin-top:1rem;">
+    <a href="test.html" class="bw-cta">Try It Now</a>
+  </div>
+</section>
 
-        gsap.from(".bw-hero-text h1", { x: -100, opacity: 0, duration: 1 });
-        gsap.from(".bw-hero-text p", { x: -100, opacity: 0, delay: 0.3, duration: 1 });
-        gsap.from(".bw-hero-text .bw-cta", { scale: 0.8, opacity: 0, delay: 0.6, duration: 1 });
+<section class="bw-cta-banner">
+  <h2>Ready to Take Control?</h2>
+  <p>Join thousands using BudgetWise to manage money smarter.</p>
+  <a href="signup.html" class="bw-cta">Start Free</a>
+</section>
 
-        gsap.from("#how-it-works .bw-card", {
-          y: 60, opacity: 0, duration: 1, stagger: 0.2,
-          scrollTrigger: { trigger: "#how-it-works", start: "top 85%" }
-        });
+<footer class="bw-footer">
+  &copy; 2025 BudgetWise. All rights reserved.
+</footer>
 
-        gsap.from("#features .bw-feature-card", {
-          y: 60, opacity: 0, duration: 1, stagger: 0.2,
-          scrollTrigger: { trigger: "#features", start: "top 85%" }
-        });
+</div>
 
-        gsap.from("#pricing .bw-card", {
-          rotateY: 15, y: 80, opacity: 0, duration: 1, stagger: 0.2,
-          scrollTrigger: { trigger: "#pricing", start: "top 85%" }
-        });
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from(".bw-cta-banner", {
-          scale: 0.95, opacity: 0, duration: 1,
-          scrollTrigger: { trigger: ".bw-cta-banner", start: "top 85%" }
-        });
-      });
-  }
+  gsap.from(".bw-hero-text h1", { x: -100, opacity: 0, duration: 1 });
+  gsap.from(".bw-hero-text p", { x: -100, opacity: 0, delay: 0.3, duration: 1 });
+  gsap.from(".bw-hero-text .bw-cta", { scale: 0.8, opacity: 0, delay: 0.6, duration: 1 });
 
-function toggleMobileNav() {
-    const menu = document.getElementById("bw-mobile-menu");
-    menu.classList.toggle("hidden");
-  }
-    </script>
-   
-  </body>
+  gsap.from(".bw-feature-card", {
+    y: 40, opacity: 0, duration: 1, stagger: 0.2,
+    scrollTrigger: { trigger: ".bw-section", start: "top 85%" }
+  });
+});
+</script>
+</body>
 </html>
