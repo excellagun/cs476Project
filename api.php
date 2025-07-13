@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 error_reporting(E_ALL);
 
@@ -16,29 +16,44 @@ if ($conn->connect_error) {
 $action = $_GET['action'] ?? '';
 $logged_in = isset($_SESSION['user_id']);
 
-if (!$logged_in && !isset($_SESSION['trial_count'])) {
-    $_SESSION['trial_count'] = 0;
-}
+if (!$logged_in) {
+    if (!isset($_SESSION['trial_count'])) {
+        $_SESSION['trial_count'] = 0;
+    }
 
-// ✅ Trial limit applies ONLY if not logged in and NOT signup/login/session_check
-if (
-    !$logged_in &&
-    ($_SESSION['trial_count'] ?? 0) > 3 &&
-    !in_array($action, ['signup', 'login', 'session_check'])
-) {
-    echo json_encode(["error" => "Trial limit reached. Please log in or sign up."]);
-    exit;
+    if ($_SESSION['trial_count'] >= 3 && !in_array($action, ['signup', 'login', 'session_check'])) {
+        echo json_encode(["error" => "Trial limit reached. Please log in or sign up."]);
+        exit;
+    }
 }
-
 
 switch ($action) {
-
 case 'signup':
-    $data = json_decode(file_get_contents("php://input"), true);
-    $username = $conn->real_escape_string($data['username']);
-    $password = password_hash($data['password'], PASSWORD_DEFAULT);
+    $raw = file_get_contents("php://input");
+    $data = json_decode($raw, true);
+
+    if (!isset($data['username'], $data['password'])) {
+        echo json_encode(["error" => "Username and password required."]);
+        exit;
+    }
+
+    $username = trim($conn->real_escape_string($data['username']));
+    $password = trim($data['password']);
+
+    if (empty($username) || empty($password)) {
+        echo json_encode(["error" => "Invalid username or password."]);
+        exit;
+    }
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
     $stmt = $conn->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
-    $stmt->bind_param("ss", $username, $password);
+    if (!$stmt) {
+        echo json_encode(["error" => "Prepare failed: " . $conn->error]);
+        exit;
+    }
+    $stmt->bind_param("ss", $username, $hash);
+
     if ($stmt->execute()) {
         $_SESSION['user_id'] = $conn->insert_id;
         $_SESSION['trial_count'] = 0;
@@ -49,13 +64,22 @@ case 'signup':
     }
     exit;
 
+
+
 case 'login':
     $data = json_decode(file_get_contents("php://input"), true);
-    $username = $conn->real_escape_string($data['username']);
+
+    if (!isset($data['username'], $data['password'])) {
+        echo json_encode(["error" => "Invalid request"]);
+        exit;
+    }
+
+    $username = trim($conn->real_escape_string($data['username']));
     $stmt = $conn->prepare("SELECT id, password_hash FROM users WHERE username=?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->bind_result($id, $hash);
+
     if ($stmt->fetch() && password_verify($data['password'], $hash)) {
         $_SESSION['user_id'] = $id;
         $_SESSION['trial_count'] = 0;
@@ -66,12 +90,9 @@ case 'login':
     }
     exit;
 
+
 case 'session_check':
-    if (!$logged_in) {
-        echo json_encode(["error" => "Unauthorized"]);
-    } else {
-        echo json_encode(["success" => true]);
-    }
+    echo json_encode($logged_in ? ["success" => true] : ["error" => "Unauthorized"]);
     exit;
 
 case 'logout':
@@ -117,11 +138,15 @@ case 'history':
         while ($row = $q->fetch_assoc()) $out[] = $row;
         echo json_encode($out);
     } else {
-        $trial = $_SESSION['trial_transactions'] ?? [];
+        if (!isset($_SESSION['trial_transactions']) || !is_array($_SESSION['trial_transactions'])) {
+            $_SESSION['trial_transactions'] = [];
+        }
+        $trial = $_SESSION['trial_transactions'];
         usort($trial, fn($a, $b) => strcmp($b['date'], $a['date']));
         echo json_encode($trial);
     }
     exit;
+
 
 case 'summary':
     if ($logged_in) {
@@ -155,12 +180,6 @@ case 'summary':
     exit;
 
 case 'prediction':
-
-    if (!$logged_in && $_SESSION['trial_count'] >= 3) {
-        echo json_encode(["error" => "Trial limit reached. Please log in or sign up."]);
-        exit;
-    }
-
     $stable = 0;
     $variable = [];
 
@@ -188,6 +207,9 @@ case 'prediction':
                 $variable[] = $t['amount'];
             }
         }
+        if ($_SESSION['trial_count'] < 3) {
+            $_SESSION['trial_count']++;
+        }
     }
 
     $var_total = array_sum($variable);
@@ -205,11 +227,6 @@ case 'prediction':
         'upper_bound' => round($stable + $upper, 2),
         'note' => 'Stable + variable expenses'
     ]);
-
-    if (!$logged_in) {
-        $_SESSION['trial_count']++;
-    }
-
     exit;
 
 default:
