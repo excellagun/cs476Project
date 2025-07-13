@@ -1,296 +1,165 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Budget Tracker with Chat</title>
+<?php
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<style>
-body {
-  background-color: #f1fdf5;
-}
-header {
-  background-color: #165734;
-  color: white;
-  padding: 1rem 2rem;
-}
-header nav a {
-  color: white;
-  margin-left: 20px;
-  text-decoration: none;
-  font-weight: bold;
-}
-.amount-positive { color: green; }
-.amount-negative { color: red; }
-.chat-box {
-  height: 200px;
-  overflow-y: auto;
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-}
-.chat-message {
-  margin-bottom: 0.5rem;
-}
-</style>
-</head>
-<body>
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+error_reporting(E_ALL);
 
-<header class="d-flex justify-content-between align-items-center">
-  <div><strong>Budget Tracker</strong></div>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Dashboard</a>
-    <a href="#" onclick="exportExcel()">Export</a>
-    <a href="#" onclick="clearData()">Clear</a>
-  </nav>
-</header>
+session_set_cookie_params(86400);
+session_start();
+header('Content-Type: application/json');
 
-<div class="container mt-4">
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="card p-3">
-        <h3>Add Transaction</h3>
-        <input type="text" id="desc" class="form-control mb-2" placeholder="Description">
-        <input type="number" id="amount" class="form-control mb-2" placeholder="Amount">
-        <select id="type" class="form-select mb-2" onchange="toggleCategory()">
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-        <select id="category" class="form-select mb-2">
-          <option value="Food">Food</option>
-          <option value="Transport">Transport</option>
-          <option value="Utilities">Utilities</option>
-          <option value="Other">Other</option>
-        </select>
-        <button id="addBtn" onclick="addTransaction()" class="btn btn-success">Add</button>
-      </div>
-
-      <div class="card mt-4 p-3">
-        <h3>Chat</h3>
-        <div class="chat-box mb-2" id="chatBox"></div>
-        <input type="text" id="chatInput" class="form-control mb-2" placeholder="Type your message">
-        <button onclick="addChatMessage()" class="btn btn-primary">Send</button>
-      </div>
-    </div>
-
-    <div class="col-md-8">
-      <div class="card p-3 mb-4">
-        <h3>Summary</h3>
-        <p>Total Income: <span class="amount-positive" id="totalIncome">$0.00</span></p>
-        <p>Total Expenses: <span class="amount-negative" id="totalExpenses">$0.00</span></p>
-        <p>Balance: <strong id="balance">$0.00</strong></p>
-        <p>Predicted Next Month Expenses: <strong id="predictedExpenses">$0.00</strong></p>
-      </div>
-
-      <div class="card p-3">
-        <h3>Transaction History</h3>
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Transaction</th>
-              <th>Amount</th>
-              <th>Category</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="history"></tbody>
-        </table>
-        <canvas id="expenseChart" height="100"></canvas>
-        <canvas id="categoryChart" height="100"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-<script>
-let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-let chatLog = JSON.parse(localStorage.getItem('chatLog')) || [];
-let expenseChart = null, categoryChart = null;
-
-function saveData() {
-  localStorage.setItem('transactions', JSON.stringify(transactions));
-  localStorage.setItem('chatLog', JSON.stringify(chatLog));
+$conn = new mysqli("localhost", "cmo153", "NonsoMarcel12@", "cmo153");
+if ($conn->connect_error) {
+    http_response_code(500);
+    die(json_encode(["error" => "Database connection failed"]));
 }
 
-function toggleCategory() {
-  const type = document.getElementById('type').value;
-  document.getElementById('category').disabled = (type === 'income');
-}
+$action = $_GET['action'] ?? '';
 
-function addTransaction() {
-  const desc = document.getElementById('desc').value.trim();
-  const amount = parseFloat(document.getElementById('amount').value);
-  const type = document.getElementById('type').value;
-  const category = (type === 'expense') ? document.getElementById('category').value : '';
+if ($action === 'signup') {
+    $data = json_decode(file_get_contents("php://input"), true);
+    $username = $conn->real_escape_string($data['username']);
+    $password = password_hash($data['password'], PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
+    $stmt->bind_param("ss", $username, $password);
 
-  if (!desc || isNaN(amount)) {
-    alert('Please fill in all fields');
-    return;
-  }
-
-  const id = Date.now();
-  transactions.push({ id, desc, amount, type, category, date: new Date().toISOString() });
-  saveData();
-  updateUI();
-  document.getElementById('desc').value = '';
-  document.getElementById('amount').value = '';
-}
-
-function deleteTransaction(id) {
-  transactions = transactions.filter(t => t.id !== id);
-  saveData();
-  updateUI();
-}
-
-function clearData() {
-  if (confirm('Clear all transactions and chat?')) {
-    transactions = [];
-    chatLog = [];
-    saveData();
-    updateUI();
-    updateChatUI();
-  }
-}
-
-function exportExcel() {
-  const wb = XLSX.utils.book_new();
-
-  const txData = [["Date", "Description", "Amount", "Type", "Category"]];
-  transactions.forEach(t => {
-    txData.push([
-      new Date(t.date).toLocaleDateString(),
-      t.desc,
-      t.amount,
-      t.type,
-      t.category || "-"
-    ]);
-  });
-  const txSheet = XLSX.utils.aoa_to_sheet(txData);
-  XLSX.utils.book_append_sheet(wb, txSheet, "Transactions");
-
-  const chatData = [["Timestamp", "User", "Message"]];
-  chatLog.forEach(c => {
-    chatData.push([c.timestamp, c.user, c.message]);
-  });
-  const chatSheet = XLSX.utils.aoa_to_sheet(chatData);
-  XLSX.utils.book_append_sheet(wb, chatSheet, "Chat Log");
-
-  XLSX.writeFile(wb, "budget_tracker.xlsx");
-}
-
-function updateUI() {
-  let income = 0, expenses = 0, html = '';
-
-  transactions.forEach(t => {
-    if (t.type === 'income') income += t.amount;
-    else expenses += t.amount;
-
-    html += `<tr>
-      <td>${new Date(t.date).toLocaleDateString()}</td>
-      <td>${t.desc}</td>
-      <td class="${t.type === 'income' ? 'amount-positive' : 'amount-negative'}">
-        ${t.type === 'income' ? '+' : '-'}$${t.amount.toFixed(2)}
-      </td>
-      <td>${t.type === 'expense' ? t.category : '-'}</td>
-      <td><button onclick="deleteTransaction(${t.id})" class="btn btn-sm btn-link text-danger">x</button></td>
-    </tr>`;
-  });
-
-  document.getElementById('history').innerHTML = html || '<tr><td colspan="5" class="text-center">No transactions</td></tr>';
-  document.getElementById('totalIncome').textContent = `$${income.toFixed(2)}`;
-  document.getElementById('totalExpenses').textContent = `$${expenses.toFixed(2)}`;
-  document.getElementById('balance').textContent = `$${(income - expenses).toFixed(2)}`;
-
-  updatePredictionAndCharts();
-}
-
-function updatePredictionAndCharts() {
-  const expenseTx = transactions.filter(t => t.type === 'expense');
-  if (expenseTx.length === 0) {
-    document.getElementById('predictedExpenses').textContent = `$0.00`;
-    if (expenseChart) expenseChart.destroy();
-    if (categoryChart) categoryChart.destroy();
-    return;
-  }
-
-  const monthlyMap = new Map(), categoryMap = new Map();
-  expenseTx.forEach(t => {
-    const d = new Date(t.date);
-    const key = `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}`;
-    monthlyMap.set(key, (monthlyMap.get(key) || 0) + t.amount);
-    categoryMap.set(t.category, (categoryMap.get(t.category) || 0) + t.amount);
-  });
-
-  const months = Array.from(monthlyMap.keys()).sort();
-  const values = months.map(m => monthlyMap.get(m));
-  const predicted = (values.reduce((a,b)=>a+b,0) / months.length) || 0;
-  document.getElementById('predictedExpenses').textContent = `$${predicted.toFixed(2)}`;
-
-  const nextMonth = (() => {
-    const [y, m] = months[months.length-1].split('-').map(Number);
-    return m===12 ? `${y+1}-01` : `${y}-${String(m+1).padStart(2,'0')}`;
-  })();
-
-  if (expenseChart) expenseChart.destroy();
-  if (categoryChart) categoryChart.destroy();
-
-  expenseChart = new Chart(document.getElementById('expenseChart').getContext('2d'), {
-    type: 'line',
-    data: {
-      labels: [...months, nextMonth],
-      datasets: [{
-        label: 'Monthly Expenses',
-        data: [...values, predicted],
-        fill: false,
-        borderColor: '#dc3545',
-        tension: 0.1
-      }]
-    },
-    options: { scales: { y: { beginAtZero: true } } }
-  });
-
-  categoryChart = new Chart(document.getElementById('categoryChart').getContext('2d'), {
-    type: 'pie',
-    data: {
-      labels: Array.from(categoryMap.keys()),
-      datasets: [{
-        label: 'Expenses by Category',
-        data: Array.from(categoryMap.values())
-      }]
+    if ($stmt->execute()) {
+        $_SESSION['user_id'] = $conn->insert_id;
+        $_SESSION['trial_count'] = 0;
+        echo json_encode(["success" => true]);
+    } else {
+        echo json_encode(["error" => "Signup failed: " . $stmt->error]);
     }
-  });
+    exit;
 }
 
-function addChatMessage() {
-  const input = document.getElementById('chatInput');
-  const message = input.value.trim();
-  if (!message) return;
-  chatLog.push({ timestamp: new Date().toLocaleString(), user: 'User', message });
-  saveData();
-  updateChatUI();
-  input.value = '';
+
+if ($action === 'login') {
+    $data = json_decode(file_get_contents("php://input"), true);
+    $username = $conn->real_escape_string($data['username']);
+    $stmt = $conn->prepare("SELECT id, password_hash FROM users WHERE username=?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->bind_result($id, $hash);
+    if ($stmt->fetch() && password_verify($data['password'], $hash)) {
+        $_SESSION['user_id'] = $id;
+        $_SESSION['trial_count'] = 0;
+        echo json_encode(["success" => true]);
+    } else {
+        echo json_encode(["error" => "Invalid login"]);
+    }
+    exit;
 }
 
-function updateChatUI() {
-  const chatBox = document.getElementById('chatBox');
-  chatBox.innerHTML = '';
-  chatLog.forEach(c => {
-    const div = document.createElement('div');
-    div.className = 'chat-message';
-    div.textContent = `[${c.timestamp}] ${c.user}: ${c.message}`;
-    chatBox.appendChild(div);
-  });
-  chatBox.scrollTop = chatBox.scrollHeight;
+if ($action === 'session_check') {
+    if (!isset($_SESSION['user_id']) || ($_SESSION['user_id'] === 0 && ($_SESSION['trial_count'] ?? 0) >= 3)) {
+        echo json_encode(["error" => "Unauthorized"]);
+    } else {
+        echo json_encode(["success" => true]);
+    }
+    exit;
 }
 
-toggleCategory();
-updateUI();
-updateChatUI();
-</script>
-</body>
-</html>
+$logged_in = isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0;
+if (!$logged_in && ($_SESSION['trial_count'] ?? 0) >= 3) {
+    echo json_encode(["error" => "Trial expired. Please log in."]);
+    exit;
+}
+
+$uid = $logged_in ? $_SESSION['user_id'] : 1;
+
+switch ($action) {
+case 'summary':
+    $stmt = $conn->prepare("
+        SELECT
+            IFNULL(SUM(CASE WHEN type='income' THEN amount ELSE 0 END),0) AS total_income,
+            IFNULL(SUM(CASE WHEN type='expense' THEN amount ELSE 0 END),0) AS total_expenses,
+            IFNULL(SUM(CASE WHEN type='income' THEN amount ELSE -amount END),0) AS balance
+        FROM transactions WHERE user_id=?");
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    echo json_encode($stmt->get_result()->fetch_assoc());
+    break;
+
+case 'history':
+    $stmt = $conn->prepare("SELECT * FROM transactions WHERE user_id=? ORDER BY date DESC");
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    $q = $stmt->get_result();
+    $out = [];
+    while ($row = $q->fetch_assoc()) $out[] = $row;
+    echo json_encode($out);
+    break;
+
+case 'prediction':
+    $stable = 0;
+    $variable = [];
+
+    $stmt = $conn->prepare("
+        SELECT IFNULL(SUM(amount),0) FROM transactions WHERE user_id=? AND type='expense' AND category IN ('Rent', 'Utilities')");
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    $stmt->bind_result($stable);
+    $stmt->fetch();
+    $stmt->close();
+
+    $stmt = $conn->prepare("
+        SELECT amount FROM transactions WHERE user_id=? AND type='expense' AND (category NOT IN ('Rent','Utilities') OR category IS NULL)");
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    while ($r = $res->fetch_assoc()) $variable[] = $r['amount'];
+
+    $var_total = array_sum($variable);
+    $var_count = count($variable);
+
+    $lower = $upper = 0;
+    if ($var_count > 0) {
+        $avg = $var_total / $var_count;
+        $lower = max(0, $avg * $var_count * 0.85);
+        $upper = $avg * $var_count * 1.05;
+    }
+
+    if (!$logged_in) $_SESSION['trial_count']++;
+
+    echo json_encode([
+        'lower_bound' => round($stable + $lower, 2),
+        'upper_bound' => round($stable + $upper, 2),
+        'note' => 'Stable + variable expenses'
+    ]);
+    break;
+
+case 'add':
+    $d = json_decode(file_get_contents("php://input"), true);
+    $stmt = $conn->prepare("INSERT INTO transactions (user_id, description, amount, type, category) VALUES (?,?,?,?,?)");
+    $stmt->bind_param("isdss", $uid, $d['description'], $d['amount'], $d['type'], $d['category']);
+    $stmt->execute();
+    echo json_encode(["success" => true]);
+    break;
+
+case 'clear':
+    $conn->query("DELETE FROM transactions WHERE user_id=$uid");
+    echo json_encode(["success" => true]);
+    break;
+
+case 'delete':
+    $id = intval($_GET['id']);
+    $conn->query("DELETE FROM transactions WHERE id=$id AND user_id=$uid");
+    echo json_encode(["success" => true]);
+    break;
+
+ case 'logout':
+    session_unset();
+    session_destroy();
+    echo json_encode(["success" => true]);
+    break;
+
+
+
+
+default:
+    echo json_encode(["error" => "Invalid action"]);
+} 
+
+
+ 
